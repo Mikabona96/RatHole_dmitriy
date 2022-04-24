@@ -17,7 +17,6 @@ export const Routes: FC = () => {
     const { refreshUser } = useUser();
 
     useEffect(() => {
-        console.log('REFRESH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         refreshUser();
     }, []);
 

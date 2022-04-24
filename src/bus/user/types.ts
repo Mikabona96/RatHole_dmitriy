@@ -8,7 +8,7 @@ export type userId = string | null
 export type User = {
     username: string,
     _id: string
-}
+} | null
 export type UserState = {
     user: User | null
 }

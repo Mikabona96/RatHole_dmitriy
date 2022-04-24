@@ -4,25 +4,24 @@ import { createAction } from '@reduxjs/toolkit';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Slice
-import { userActions, sliceName } from '../slice';
+import { messagesActions, sliceName } from '../slice';
 
 // Tools
 import { makeRequest } from '../../../tools/utils';
 import { API_URL } from '../../../init/constants';
 
-// Types
-import * as UserTypes from '../types';
-
 // Action
-export const refreshUserAction = createAction<UserTypes.userId>(`${sliceName}/REFRESH_USER_ASYNC`);
+export const fetchMessagesAction = createAction(`${sliceName}/FETCH_MESSAGES_ASYNC`);
 
+// Types
+import { Messages } from '../types';
 
 // Saga
-const refreshUser = (callAction: ReturnType<typeof refreshUserAction>) => makeRequest<UserTypes.User>({
+const fetchMessages = (callAction: ReturnType<typeof fetchMessagesAction>) => makeRequest<Messages>({
     callAction,
     fetchOptions: {
         successStatusCode: 200,
-        fetch:             () => fetch(`${API_URL}/users/refresh/${callAction.payload}`, {
+        fetch:             () => fetch(`${API_URL}/messages`, {
             method:  'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,11 +29,12 @@ const refreshUser = (callAction: ReturnType<typeof refreshUserAction>) => makeRe
         }),
     },
     succes: function* (result) {
-        yield put(userActions.setUser(result));
+        yield console.log(result);
+        yield put(messagesActions.setMessages(result));
     },
 });
 
 // Watcher
-export function* watchRefreshUser(): SagaIterator {
-    yield takeLatest(refreshUserAction.type, refreshUser);
+export function* watchFetchMessages(): SagaIterator {
+    yield takeLatest(fetchMessagesAction.type, fetchMessages);
 }
