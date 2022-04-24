@@ -3,13 +3,13 @@ import React, { FC } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Pages
-import { Main } from '../pages';
+import Register from '../pages/Register';
 
 export const Public: FC = () => {
     return (
         <Routes>
             <Route
-                element = { <Main /> }
+                element = { <Register /> }
                 path = '/'
             />
             <Route

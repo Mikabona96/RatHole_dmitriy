@@ -20,7 +20,7 @@ export const useLocalStorage = <_, TValue>(key: string, innitialValue: TValue): 
 
     const setValue = (value: TValue) => {
         try {
-            localStorage.set(`${APP_NAME}:${key}`, value);
+            localStorage.set(`${key}`, value);
             setStoredValue(value);
         } catch (error) {
             console.log(`local storage error by key: ${APP_NAME}:${key}. Dont forget about KEY and VALUE arguments.`);

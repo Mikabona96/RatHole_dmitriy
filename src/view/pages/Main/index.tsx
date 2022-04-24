@@ -10,7 +10,7 @@ import { Container } from './styles';
 const Main: FC = () => {
     return (
         <Container>
-            CODE HERE
+            CodeHere
         </Container>
     );
 };
