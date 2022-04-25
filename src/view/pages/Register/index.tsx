@@ -1,7 +1,6 @@
 /* eslint-disable id-blacklist */
 // Core
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
@@ -27,11 +26,10 @@ const RegistrationPage: FC<PropTypes> = () => {
     const { setTogglerAction } = useTogglersRedux();
     const [ inputValue, setInputValue ] = useState('USER: TEST1');
     const { user, userRegister } = useUser();
-    const dispatch = useDispatch();
 
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(userRegister(inputValue));
+        userRegister(inputValue);
         e.currentTarget.reset();
     };
 

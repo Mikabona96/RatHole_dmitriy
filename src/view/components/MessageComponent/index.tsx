@@ -9,11 +9,11 @@ import * as S from './styles';
 
 // Types
 type PropTypes = {
-    _id:       string,
+    _id?:       string,
     username:  string,
     text:      string,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string,
+    updatedAt?: string,
 }
 
 const message = {

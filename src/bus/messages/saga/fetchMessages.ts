@@ -29,7 +29,6 @@ const fetchMessages = (callAction: ReturnType<typeof fetchMessagesAction>) => ma
         }),
     },
     succes: function* (result) {
-        yield console.log(result);
         yield put(messagesActions.setMessages(result));
     },
 });

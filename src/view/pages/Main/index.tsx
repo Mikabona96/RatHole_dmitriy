@@ -8,6 +8,7 @@ import { MessageComponent } from '../../components/MessageComponent';
 // Hooks
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Styles
 import * as S from './styles';
@@ -15,28 +16,33 @@ import * as S from './styles';
 
 const Main: FC = () => {
     const { messages } = useMessages();
-    const { user } = useUser();
+    const { user, clearUser } = useUser();
+    const { resetTogglersToInitial } = useTogglersRedux();
 
     const logOut = () => {
         localStorage.clear();
-        location.reload();
+        clearUser();
+        resetTogglersToInitial();
     };
 
     return (
         <S.Container>
-            <main>
+            <S.Wrapper>
                 <S.Header>
                     <p>Welcome, <S.Username>{user?.username}</S.Username>!</p>
-                    <button onClick = { logOut }>LOGOUT</button>
+                    <S.Button onClick = { logOut }>LOGOUT</S.Button>
                 </S.Header>
                 <S.Chat>
                     {
                         messages?.map((message) => (
-                            <MessageComponent  { ...message }/>
+                            <MessageComponent
+                                key = { message._id }
+                                { ...message }
+                            />
                         ))
                     }
                 </S.Chat>
-            </main>
+            </S.Wrapper>
         </S.Container>
     );
 };

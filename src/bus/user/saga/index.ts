@@ -6,6 +6,7 @@ import { all, call } from 'redux-saga/effects';
 // Watchers & Actions
 import { registerUserAction, watchRegisterUser } from './registerUser';
 import { refreshUserAction, watchRefreshUser } from './refreshUser';
+import { clearUserAction, watchClearUser } from './clearUser';
 
 //Types
 import * as UserTypes from '../types';
@@ -19,9 +20,10 @@ export const useUserSaga = () => {
             const userId = localStorage.getItem('userId');
             userId && dispatch(refreshUserAction(JSON.parse(userId)));
         },
+        clearUser: () => void dispatch(clearUserAction()),
     };
 };
 
 export function* watchUser(): SagaIterator {
-    yield all([ call(watchRegisterUser), call(watchRefreshUser) ]);
+    yield all([ call(watchRegisterUser), call(watchRefreshUser), call(watchClearUser) ]);
 }
