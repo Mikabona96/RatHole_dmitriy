@@ -38,6 +38,7 @@ export const Button = styled.button`
     cursor: pointer;
     transition: .5s;
     font-size: 1rem;
+    overflow-wrap: break-word;
     &:hover {
         background-color: #f8483f;
     }

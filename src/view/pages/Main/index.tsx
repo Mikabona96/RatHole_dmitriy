@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 // Components
 import { ErrorBoundary } from '../../components';
@@ -16,7 +16,7 @@ import { InputChatComponent } from '../../components/InputChatComponent';
 
 
 const Main: FC = () => {
-    const { messages } = useMessages();
+    const { messages, fetchMessages, message } = useMessages();
     const { user, clearUser } = useUser();
     const { resetTogglersToInitial } = useTogglersRedux();
 
@@ -25,6 +25,10 @@ const Main: FC = () => {
         clearUser();
         resetTogglersToInitial();
     };
+
+    useEffect(() => {
+        fetchMessages();
+    }, [ message ]);
 
 
     return (

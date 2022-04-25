@@ -17,7 +17,7 @@ type PropTypes = {
 export const InputChatComponent: FC<PropTypes> = () => {
     const [ value, setValue ] = useState('');
     const { user } = useUser();
-    const { sendMessage, message, messages } = useMessages();
+    const { sendMessage } = useMessages();
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);

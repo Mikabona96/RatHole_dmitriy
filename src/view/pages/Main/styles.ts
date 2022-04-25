@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 // Core
 import styled from 'styled-components';
 import background from '../../../assets/images/bg2.jpg';
