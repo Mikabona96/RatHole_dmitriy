@@ -12,6 +12,7 @@ import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Styles
 import * as S from './styles';
+import { InputChatComponent } from '../../components/InputChatComponent';
 
 
 const Main: FC = () => {
@@ -24,6 +25,7 @@ const Main: FC = () => {
         clearUser();
         resetTogglersToInitial();
     };
+
 
     return (
         <S.Container>
@@ -42,6 +44,7 @@ const Main: FC = () => {
                         ))
                     }
                 </S.Chat>
+                <InputChatComponent />
             </S.Wrapper>
         </S.Container>
     );

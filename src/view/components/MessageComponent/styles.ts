@@ -25,9 +25,18 @@ export const Text = styled.div`
     `;
 export const text = styled.div`
     width: 100%
+    `;
+export const DateWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    `;
+export const Updated = styled.p`
+    font-size: 0.7rem;
+    color: #1565C0
 `;
+
 export const Date = styled.p`
     overflow-wrap: break-word;
-    align-self: flex-end;
     font-size: 1rem;
-`;
+    `;

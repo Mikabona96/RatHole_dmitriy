@@ -9,9 +9,15 @@ export type Message = {
     'createdAt': string,
     'updatedAt': string
 }
+export type message = {
+    text: string
+    username: string | undefined
+}
+
 export type Messages = Array<Message>
 export type MessagesState = {
     messages: Messages | null
+    message: Message | null
 }
 
 // Contracts

@@ -9,6 +9,7 @@ import * as reducers from './reducers';
 
 const initialState = {
     messages: null,
+    message:  null,
 };
 
 export const messagesSlice = createSlice<types.MessagesState, typeof reducers>({

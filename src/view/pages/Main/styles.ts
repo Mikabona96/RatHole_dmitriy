@@ -25,17 +25,17 @@ export const Header = styled.div`
     justify-content: space-between;
     align-items: center;
     color: white;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
 
     p {
         font-size: 1.5rem;
     }
     `;
 export const Username = styled.span`
-    color: #ff7676;
+    color: #E84C3D;
     `;
 export const Button = styled.button`
-        background-color: #ff7676;
+        background-color: #E84C3D;
         padding: 2%;
         border: none;
         border-radius: 4%;
@@ -43,14 +43,14 @@ export const Button = styled.button`
         cursor: pointer;
         transition: .5s;
         &:hover {
-            background-color: #ff6464;
+            background-color: #f8483f;
         }
     `;
 
 export const Chat = styled.div`
     background: url(${background3});
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     overflow-y: auto;
     border-radius: 2%;
     height: 60%;
@@ -61,7 +61,7 @@ export const Chat = styled.div`
         border-radius: 2%;
 	}
 	&::-webkit-scrollbar-thumb {
-		background-color: #ff7676;
+		background-color: #E84C3D;
         border-radius: 10px;
 	}
 	&::-webkit-scrollbar-track {
