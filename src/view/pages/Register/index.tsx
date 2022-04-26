@@ -24,7 +24,7 @@ type PropTypes = {
 const RegistrationPage: FC<PropTypes> = () => {
     const [ , setValue ] = useLocalStorage('userId', '');
     const { setTogglerAction } = useTogglersRedux();
-    const [ inputValue, setInputValue ] = useState('USER: TEST1');
+    const [ inputValue, setInputValue ] = useState('');
     const { user, userRegister } = useUser();
 
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {

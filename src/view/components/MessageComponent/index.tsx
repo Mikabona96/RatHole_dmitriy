@@ -24,30 +24,44 @@ type PropTypes = {
 export const MessageComponent: FC<PropTypes> = (props) => {
     const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
-    const { message } = useMessages();
+    const { message, editMessage, deleteMessage } = useMessages();
 
     const alignMessage = user?.username === props?.username;
-    const editMessage = message?.text === props.text;
+    const editMessageProps = message?.text === props.text;
     const [ toggle, setToggle ] = useState(true);
-    const [ value, setValue ] = useState('');
+    const [ value, setValue ] = useState(`${message?.text}`);
 
     const editHandler = () => {
         setToggle(!toggle);
+    };
+
+    const DeleteHandler = () => {
+        deleteMessage(`${message?._id}`);
     };
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
 
-    const onButtonSubmit = () => {
+
+    const onButtonSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const editedMessage = {
+            message: {
+                text: value,
+                id:   message?._id,
+            },
+        };
         setValue('');
+        editMessage(editedMessage);
         setToggle(!toggle);
+        event.currentTarget.reset();
     };
 
     return (
         <S.Container alignMessage = { alignMessage }>
-            <S.Buttons editMessage = { editMessage }>
-                <button>X</button>
+            <S.Buttons editMessageProps = { editMessageProps }>
+                <button onClick = { DeleteHandler }>X</button>
                 <button onClick = { editHandler }>E</button>
             </S.Buttons>
             <S.MessageWrapper toggle = { toggle }>
@@ -67,7 +81,7 @@ export const MessageComponent: FC<PropTypes> = (props) => {
                 </S.DateWrapper>
             </S.MessageWrapper>
             {
-                toggle === false ? <S.Edit>
+                toggle === false ? <S.Edit onSubmit = { onButtonSubmit }>
                     <S.InputWrapper>
                         <input
                             type = 'text'
@@ -75,8 +89,10 @@ export const MessageComponent: FC<PropTypes> = (props) => {
                             onChange = { onChangeInput }
                         />
                     </S.InputWrapper>
-                    <S.Button onClick = { onButtonSubmit }>Update</S.Button>
-                </S.Edit> : null
+                    <S.Button
+                        disabled = { value === '' }>Update
+                    </S.Button>
+                                   </S.Edit> : null
             }
 
         </S.Container>

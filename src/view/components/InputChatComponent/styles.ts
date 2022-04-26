@@ -1,7 +1,7 @@
 // Core
 import styled from 'styled-components';
 
-export const Container = styled.section`
+export const Container = styled.form`
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -41,5 +41,8 @@ export const Button = styled.button`
     overflow-wrap: break-word;
     &:hover {
         background-color: #f8483f;
+    }
+    &:disabled {
+        background-color: #bc7a7a;
     }
 `;

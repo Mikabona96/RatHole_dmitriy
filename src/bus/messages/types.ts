@@ -14,6 +14,13 @@ export type message = {
     username: string | undefined
 }
 
+export type editedMessage = {
+    message: {
+        text: string,
+        id: string | undefined
+    }
+}
+
 export type Messages = Array<Message>
 export type MessagesState = {
     messages: Messages | null

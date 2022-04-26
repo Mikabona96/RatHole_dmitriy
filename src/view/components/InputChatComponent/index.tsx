@@ -23,16 +23,18 @@ export const InputChatComponent: FC<PropTypes> = () => {
         setValue(event.target.value);
     };
 
-    const onButtonSubmit = () => {
+    const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         sendMessage({
             text:     value,
             username: user?.username,
         });
         setValue('');
+        event.currentTarget.reset();
     };
 
     return (
-        <S.Container>
+        <S.Container onSubmit = { onButtonSubmit }>
             <S.InputWrapper>
                 <input
                     type = 'text'
@@ -40,7 +42,9 @@ export const InputChatComponent: FC<PropTypes> = () => {
                     onChange = { onChangeInput }
                 />
             </S.InputWrapper>
-            <S.Button onClick = { onButtonSubmit }>SENT</S.Button>
+            <S.Button
+                disabled = { value === '' }>SENT
+            </S.Button>
         </S.Container>
     );
 };

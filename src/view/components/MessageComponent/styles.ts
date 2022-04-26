@@ -22,7 +22,7 @@ export const Username = styled.p`
     color: red;
     `;
 export const Buttons = styled.div`
-    display: ${(props: {editMessage: boolean}) => props.editMessage ? '' : 'none'};
+    display: ${(props: {editMessageProps: boolean}) => props.editMessageProps ? '' : 'none'};
     `;
 export const Text = styled.div`
     overflow-wrap: break-word;
@@ -56,6 +56,6 @@ export const InputWrapper = styled.div`
     
 `;
 
-export const Edit = styled.section`
+export const Edit = styled.form`
     
 `;
