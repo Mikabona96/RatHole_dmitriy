@@ -10,6 +10,14 @@ export const Container = styled.section`
     height: 100vh;
     background-image: url(${backGround});
     background-size: cover;
+    @media (min-width: 375px) {
+        align-items: center;
+        justify-content: center;
+    }
+    @media (min-width: 768px) {
+        display: flex;
+        justify-content: start;
+    }
 `;
 export const FormWrapper = styled.div`
     display: flex;
@@ -20,6 +28,11 @@ export const FormWrapper = styled.div`
     border: 1px solid white;
     z-index: 1;
     border-radius: 5px;
+    @media (max-width: 576) {
+        display: flex;
+        align-content: center;
+        align-items: center;
+    }
 `;
 
 export const Form = styled.form`
@@ -50,10 +63,13 @@ export const Button = styled.button`
         border-radius: 5px;
         border: none;
         outline: none;
-        background-color: rgba(255, 255, 255, .7);
+        background-color: #f8483f;
         cursor: pointer;
         transition: .5s ease;
         &:hover {
-            background-color: rgb(255, 255, 255)
+            background-color: #f33232
+        }
+        &:active {
+            background-color: #f33232
         }
     `;

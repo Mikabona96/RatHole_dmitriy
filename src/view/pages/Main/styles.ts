@@ -17,6 +17,18 @@ export const Container = styled.section`
 
 export const Wrapper = styled.main`
     width: 23%;
+    @media (min-width: 993px) {
+        width: 40%;
+    }
+    @media (max-width: 992px) {
+        width: 50%;
+    }
+    @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
     `;
 
 export const Header = styled.div`
@@ -34,9 +46,12 @@ export const Header = styled.div`
     `;
 export const Username = styled.span`
     color: #E84C3D;
+    @media (max-width: 768px) {
+        color: white;
+    }
     `;
 export const Button = styled.button`
-        background-color: #E84C3D;
+        background-color: #000;
         padding: 2%;
         border: none;
         border-radius: 4%;
@@ -46,6 +61,10 @@ export const Button = styled.button`
         &:hover {
             background-color: #f8483f;
         }
+        @media (min-width: 375px) {
+            background-color: #E84C3D;
+        }
+        
     `;
 
 export const Chat = styled.div`
@@ -69,4 +88,7 @@ export const Chat = styled.div`
 	    background: #4E5255;
 	}
 	z-index: 50;
+    @media (max-width: 768px) {
+            height: 100vh;
+        }
 `;

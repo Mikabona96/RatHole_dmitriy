@@ -13,6 +13,7 @@ import { useTogglersRedux } from '../../../bus/client/togglers';
 // Styles
 import * as S from './styles';
 import { InputChatComponent } from '../../components/InputChatComponent';
+import { Keyboard } from '../../components/Keyboard';
 
 
 const Main: FC = () => {
@@ -49,6 +50,7 @@ const Main: FC = () => {
                     }
                 </S.Chat>
                 <InputChatComponent />
+                <Keyboard />
             </S.Wrapper>
         </S.Container>
     );

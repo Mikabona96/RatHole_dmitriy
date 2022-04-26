@@ -1,33 +1,26 @@
-/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/jsx-closing-tag-location */
 // Core
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
 
-// Bus
-// import {} from '../../../bus/'
+// Assets
+import del from '../../../assets/icons/del.svg';
+import edit from '../../../assets/icons/ed.svg';
 
 // Styles
 import * as S from './styles';
 
 // Types
-type PropTypes = {
-    _id?:       string,
-    username:  string,
-    text:      string,
-    createdAt?: string,
-    updatedAt?: string,
-}
+import { Message } from '../../../bus/messages/types';
 
-
-export const MessageComponent: FC<PropTypes> = (props) => {
+export const MessageComponent: FC<Message> = (props) => {
     const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
     const { message, editMessage, deleteMessage } = useMessages();
 
     const alignMessage = user?.username === props?.username;
-    const editMessageProps = message?.text === props.text;
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${message?.text}`);
 
@@ -60,9 +53,21 @@ export const MessageComponent: FC<PropTypes> = (props) => {
 
     return (
         <S.Container alignMessage = { alignMessage }>
-            <S.Buttons editMessageProps = { editMessageProps }>
-                <button onClick = { DeleteHandler }>X</button>
-                <button onClick = { editHandler }>E</button>
+            <S.Buttons alignMessage = { alignMessage }>
+                <S.ButtonsWrapper>
+                    <S.Delete onClick = { DeleteHandler }>
+                        <img
+                            alt = ''
+                            src = { del }
+                        />
+                    </S.Delete>
+                    <S.EditButton onClick = { editHandler }>
+                        <img
+                            alt = ''
+                            src = { edit }
+                        />
+                    </S.EditButton>
+                </S.ButtonsWrapper>
             </S.Buttons>
             <S.MessageWrapper toggle = { toggle }>
                 <S.Username>
@@ -92,7 +97,7 @@ export const MessageComponent: FC<PropTypes> = (props) => {
                     <S.Button
                         disabled = { value === '' }>Update
                     </S.Button>
-                                   </S.Edit> : null
+                </S.Edit> : null
             }
 
         </S.Container>
