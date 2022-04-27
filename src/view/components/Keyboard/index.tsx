@@ -1,5 +1,7 @@
 // Core
 import React, { FC } from 'react';
+import { useKeyCode } from '../../../bus/keyCode';
+import { useKeyboard } from '../../../tools/hooks/useKeyboard';
 
 // Bus
 // import {} from '../../../bus/'
@@ -7,47 +9,103 @@ import React, { FC } from 'react';
 // Styles
 import * as S from './styles';
 
-const enLayout = {
-    firstRow:  [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ],
-    secondRow: [ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' ],
-    thirdRow:  [ 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' ],
-    fourthRow: [ 'shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace' ],
-    fifthRow:  [ ',', 'En', 'Space', '.', 'Enter' ],
-};
-const ruLayout = {
-    firstRow:  [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ],
-    secondRow: [ 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ' ],
-    thirdRow:  [ 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э' ],
-    fourthRow: [ 'shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'backspace' ],
-    fifthRow:  [ ',', 'Ru', 'Space', '.', 'Enter' ],
-};
 
 export const Keyboard: FC = () => {
+    const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
+    const { keyCode, key } = useKeyCode();
+
     return (
         <S.LayOut>
-            <S.FirstRow>
+            <S.FirstRow styles = { LayOut.firstRow.style }>
                 {
-                    ruLayout.firstRow.map((k) => <S.Key key = { k }>{k}</S.Key>)
+                    LayOut.firstRow.keys.map((k) => {
+                        if (typeof k !== 'string') {
+                            return (
+                                <S.Key
+                                    colir = { k.code === keyCode }
+                                    key = { k.key }>{k.key}
+                                </S.Key>
+                            );
+                        }
+
+                        return <div></div>;
+                    })
                 }
             </S.FirstRow>
-            <S.SecondRow>
+            <S.SecondRow styles = { LayOut.secondRow.style }>
                 {
-                    ruLayout.secondRow.map((k) => <S.Key key = { k }>{k}</S.Key>)
+                    LayOut.secondRow.keys.map((k) => {
+                        if (typeof k !== 'string') {
+                            return (
+                                <S.Key
+                                    colir = { k.code === keyCode }
+                                    key = { k.key }>{k.key}
+                                </S.Key>
+                            );
+                        }
+
+                        return <div></div>;
+                    })
                 }
             </S.SecondRow>
-            <S.ThirdRow>
+            <S.ThirdRow styles = { LayOut.thirdRow.style }>
                 {
-                    ruLayout.thirdRow.map((k) => <S.Key key = { k }>{k}</S.Key>)
+                    LayOut.thirdRow.keys.map((k) => {
+                        if (typeof k !== 'string') {
+                            return (
+                                <S.Key
+                                    colir = { k.code === keyCode }
+                                    key = { k.key }>{k.key}
+                                </S.Key>
+                            );
+                        }
+
+                        return <div></div>;
+                    })
                 }
             </S.ThirdRow>
-            <S.FourthRow>
+            <S.FourthRow styles = { LayOut.fourthRow.style }>
                 {
-                    ruLayout.fourthRow.map((k) => <S.Key key = { k }>{k}</S.Key>)
+                    LayOut.fourthRow.keys.map((k) => {
+                        if (typeof k !== 'string') {
+                            return (
+                                <S.Key
+                                    colir = { k.code === keyCode }
+                                    key = { k.key }>{k.key}
+                                </S.Key>
+                            );
+                        }
+
+                        return <div></div>;
+                    })
                 }
             </S.FourthRow>
-            <S.FifthRow>
+            <S.FifthRow styles = { LayOut.fifthRow.style }>
                 {
-                    ruLayout.fifthRow.map((k) => <S.Key key = { k }>{k}</S.Key>)
+                    LayOut.fifthRow.keys.map((k) => {
+                        if (typeof k !== 'string') {
+                            switch (k.key) {
+                                case `${toggleKeyboard ? 'En' : 'Ru'}`:
+                                    return (
+                                        <S.Key
+                                            colir = { k.code === keyCode }
+                                            key = { k.key }
+                                            onClick = { toggleLayout }>{k.key}
+
+                                        </S.Key>
+                                    );
+                                default:
+                                    return (
+                                        <S.Key
+                                            colir = { k.code === keyCode }
+                                            key = { k.key }>{k.key}
+                                        </S.Key>
+                                    );
+                            }
+                        }
+
+                        return <div></div>;
+                    })
                 }
             </S.FifthRow>
         </S.LayOut>
