@@ -11,6 +11,7 @@ import { useTogglersRedux } from '../bus/client/togglers';
 
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
+import { useKeyCode } from '../bus/keyCode';
 
 // Styles
 export const AppContainer = styled.div`
@@ -29,11 +30,22 @@ export const App: FC = () => {
         value: navigator.onLine,
     }), [ setTogglerAction ]);
 
+    const { dispatchKeyCode, dispatchKey, dispatchKeyRemove } = useKeyCode();
+
     useEffect(() => {
         setOnlineStatusHanlder();
         window.addEventListener('online', setOnlineStatusHanlder);
         window.addEventListener('offline', setOnlineStatusHanlder);
+        window.addEventListener('keydown', (event) => {
+            console.log(event.shiftKey);
+            dispatchKey(event.key);
+            dispatchKeyCode(event.keyCode);
+        });
+        window.addEventListener('keyup', () => {
+            dispatchKeyRemove();
+        });
     }, []);
+
 
     return (
         <ThemeProvider theme = { isDefaultTheme ? defaultTheme : defaultTheme } >
