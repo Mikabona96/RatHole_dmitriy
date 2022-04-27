@@ -43,7 +43,7 @@ export const InputChatComponent: FC<PropTypes> = () => {
                 />
             </S.InputWrapper>
             <S.Button
-                disabled = { value === '' }>SENT
+                disabled = { value === '' }>SEND
             </S.Button>
         </S.Container>
     );
