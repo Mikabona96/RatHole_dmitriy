@@ -6,6 +6,7 @@ import togglers from '../../bus/client/togglers';
 import user from '../../bus/user/slice';
 import messages from '../../bus/messages/slice';
 import keyCode from '../../bus/keyCode/slice';
+import text from '../../bus/text/slice';
 // import __entityName__ from '../../bus/__entityName__/slice';
 
 // Middleware
@@ -20,6 +21,7 @@ export const store = configureStore({
         user,
         messages,
         keyCode,
+        text,
         // __entityName__,
     },
     middleware,

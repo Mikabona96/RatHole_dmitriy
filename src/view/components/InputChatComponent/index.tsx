@@ -1,6 +1,7 @@
 // Core
 import React, { FC, useState } from 'react';
 import { useMessages } from '../../../bus/messages';
+import { useText } from '../../../bus/text';
 import { useUser } from '../../../bus/user';
 
 // Bus
@@ -15,35 +16,31 @@ type PropTypes = {
 }
 
 export const InputChatComponent: FC<PropTypes> = () => {
-    const [ value, setValue ] = useState('');
+    const { text } = useText();
     const { user } = useUser();
     const { sendMessage } = useMessages();
-
-    const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
 
     const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         sendMessage({
-            text:     value,
+            text:     text.join(''),
             username: user?.username,
         });
-        setValue('');
         event.currentTarget.reset();
     };
+
 
     return (
         <S.Container onSubmit = { onButtonSubmit }>
             <S.InputWrapper>
                 <input
                     type = 'text'
-                    value = { value }
-                    onChange = { onChangeInput }
+                    value = { text.join('') }
+                    onChange = { () => text.join('') }
                 />
             </S.InputWrapper>
             <S.Button
-                disabled = { value === '' }>SEND
+                disabled = { text.join('') === '' }>SEND
             </S.Button>
         </S.Container>
     );

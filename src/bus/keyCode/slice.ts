@@ -8,8 +8,7 @@ import * as types from './types';
 import * as reducers from './reducers';
 
 const initialState = {
-    keyCode: null,
-    key:     null,
+    keyCode: [],
 };
 
 export const keyCodeSlice = createSlice<types.KeyCodeState, typeof reducers>({
