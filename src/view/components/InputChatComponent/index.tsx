@@ -23,7 +23,7 @@ export const InputChatComponent: FC<PropTypes> = () => {
     const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         sendMessage({
-            text:     text.join(''),
+            text:     text,
             username: user?.username,
         });
         event.currentTarget.reset();
@@ -35,12 +35,14 @@ export const InputChatComponent: FC<PropTypes> = () => {
             <S.InputWrapper>
                 <input
                     type = 'text'
-                    value = { text.join('') }
-                    onChange = { () => text.join('') }
+                    value = { text }
+                    onChange = { (event) => {
+                        console.log(event);
+                    } }
                 />
             </S.InputWrapper>
             <S.Button
-                disabled = { text.join('') === '' }>SEND
+                disabled = { text === '' }>SEND
             </S.Button>
         </S.Container>
     );

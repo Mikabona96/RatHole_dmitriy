@@ -2,7 +2,7 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
 // State
-export type Text = string[]
+export type Text = string
 export type TextState = {
     text: Text
 }

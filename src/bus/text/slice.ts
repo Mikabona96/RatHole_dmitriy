@@ -8,7 +8,7 @@ import * as types from './types';
 import * as reducers from './reducers';
 
 const initialState = {
-    text: [],
+    text: '',
 };
 
 export const textSlice = createSlice<types.TextState, typeof reducers>({

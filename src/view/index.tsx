@@ -45,7 +45,6 @@ export const App: FC = () => {
                 } else {
                     dispatchText(event.key);
                 }
-                // console.log(event.keyCode);
             }
         });
         window.addEventListener('keydown', (event) => {
