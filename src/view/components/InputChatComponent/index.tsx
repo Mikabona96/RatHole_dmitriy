@@ -23,7 +23,7 @@ export const InputChatComponent: FC<PropTypes> = () => {
     const { sendMessage } = useMessages();
     const { setTogglerAction, togglersRedux: { isShiftPressed, isInputFocused }} = useTogglersRedux();
     const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
-    const inputRef = useRef<HTMLInputElement | null>(null);
+    let inputRef = useRef<HTMLInputElement | null>(null);
 
     const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -33,16 +33,14 @@ export const InputChatComponent: FC<PropTypes> = () => {
         });
         event.currentTarget.reset();
     };
-    if (isInputFocused === true) {
-        inputRef.current?.focus();
-    }
+
     useEffect(() => {
-        // setTogglerAction({ type: 'isInputFocused', value: true });
         window.addEventListener('keydown', (event) => {
             dispatchKeyCode(event.keyCode);
             if (event.shiftKey) {
                 setTogglerAction({ type: 'isShiftPressed', value: true });
             }
+            inputRef.current?.focus();
         });
         window.addEventListener('keyup', (event) => {
             dispatchKeyRemove();

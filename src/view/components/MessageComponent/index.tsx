@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-closing-tag-location */
 // Core
 import moment from 'moment';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
 
@@ -26,12 +26,20 @@ export const MessageComponent: FC<Message> = (props) => {
     const alignMessage = user?.username === props?.username;
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
+    const ref = useRef<HTMLInputElement | null>(null);
 
     const editHandler = () => {
         createMessage(props);
         setToggle(!toggle);
-        setTogglerAction({ type: 'isInputFocused', value: !isInputFocused });
+        ref.current?.focus();
+        // setTogglerAction({ type: 'isInputFocused', value: !isInputFocused });
     };
+
+    useEffect(() => {
+        window.addEventListener('keydown', () => {
+            ref.current?.focus();
+        });
+    }, []);
 
     const DeleteHandler = () => {
         createMessage(props); // its need to run UseEffect in Main/index.tsx // its create message in redux? and command below delete it immediately
@@ -97,6 +105,7 @@ export const MessageComponent: FC<Message> = (props) => {
                 toggle === false ? <S.Edit onSubmit = { onButtonSubmit }>
                     <S.InputWrapper>
                         <input
+                            ref = { ref }
                             type = 'text'
                             value = { value }
                             onChange = { onChangeInput }
