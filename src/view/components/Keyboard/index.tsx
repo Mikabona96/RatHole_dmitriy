@@ -18,6 +18,7 @@ export const Keyboard: FC = () => {
     const { setTogglerAction, togglersRedux: { isShiftPressed }} = useTogglersRedux();
     const { dispatchText } = useText();
 
+
     return (
         <S.LayOut>
             <S.FirstRow styles = { LayOut.firstRow.style }>

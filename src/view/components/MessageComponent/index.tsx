@@ -14,14 +14,12 @@ import * as S from './styles';
 
 // Types
 import { Message } from '../../../bus/messages/types';
-import { useTogglersRedux } from '../../../bus/client/togglers';
 
 export const MessageComponent: FC<Message> = (props) => {
     const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
     const { message, editMessage, deleteMessage, createMessage  } = useMessages();
 
-    const { setTogglerAction, togglersRedux: { isInputFocused }} = useTogglersRedux();
 
     const alignMessage = user?.username === props?.username;
     const [ toggle, setToggle ] = useState(true);
@@ -31,13 +29,11 @@ export const MessageComponent: FC<Message> = (props) => {
     const editHandler = () => {
         createMessage(props);
         setToggle(!toggle);
-        ref.current?.focus();
-        // setTogglerAction({ type: 'isInputFocused', value: !isInputFocused });
     };
 
     useEffect(() => {
         window.addEventListener('keydown', () => {
-            ref.current?.focus();
+            ref.current?.focus(); // change focus on message Editing
         });
     }, []);
 

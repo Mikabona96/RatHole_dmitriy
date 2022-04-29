@@ -18,10 +18,10 @@ type PropTypes = {
 }
 
 export const InputChatComponent: FC<PropTypes> = () => {
-    const { text, dispatchChangedText } = useText();
+    const { text, dispatchChangedText, dispatchClearText } = useText();
     const { user } = useUser();
     const { sendMessage } = useMessages();
-    const { setTogglerAction, togglersRedux: { isShiftPressed, isInputFocused }} = useTogglersRedux();
+    const { setTogglerAction } = useTogglersRedux();
     const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
     let inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -32,6 +32,7 @@ export const InputChatComponent: FC<PropTypes> = () => {
             username: user?.username,
         });
         event.currentTarget.reset();
+        dispatchClearText();
     };
 
     useEffect(() => {
@@ -60,11 +61,7 @@ export const InputChatComponent: FC<PropTypes> = () => {
                     type = 'text'
                     value = { text }
                     onChange = { (event) => {
-                        if (isShiftPressed) {
-                            dispatchChangedText(event.target.value.toUpperCase());
-                        } else {
-                            dispatchChangedText(event.target.value);
-                        }
+                        dispatchChangedText(event.target.value);
                     } }
                 />
             </S.InputWrapper>

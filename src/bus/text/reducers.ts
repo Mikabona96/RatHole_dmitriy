@@ -10,3 +10,6 @@ export const setChangedText: types.BaseContact<string> = (state, action) => {
 export const removeLetterFromText: types.BaseContactRemoveLetter = (state) => {
     state.text = state.text.substring(0, state.text.length - 1);
 };
+export const clearText: types.BaseContactRemoveLetter = (state) => {
+    state.text = '';
+};
