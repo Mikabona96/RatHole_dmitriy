@@ -11,8 +11,6 @@ import { useTogglersRedux } from '../bus/client/togglers';
 
 // Assets
 import { GlobalStyles, defaultTheme } from '../assets';
-import { useKeyCode } from '../bus/keyCode';
-import { useText } from '../bus/text';
 
 // Styles
 export const AppContainer = styled.div`
@@ -23,7 +21,7 @@ export const AppContainer = styled.div`
 `;
 
 export const App: FC = () => {
-    const { setTogglerAction, togglersRedux: { isShiftPressed }} = useTogglersRedux();
+    const { setTogglerAction } = useTogglersRedux();
     const [ isDefaultTheme ] = useLocalStorage('isDefaultTheme', true);
 
     const setOnlineStatusHanlder = useCallback(() => void setTogglerAction({
@@ -31,39 +29,10 @@ export const App: FC = () => {
         value: navigator.onLine,
     }), [ setTogglerAction ]);
 
-    const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
-    const { dispatchText, removeLetterFromText } = useText();
-
     useEffect(() => {
         setOnlineStatusHanlder();
         window.addEventListener('online', setOnlineStatusHanlder);
         window.addEventListener('offline', setOnlineStatusHanlder);
-        window.addEventListener('keypress', (event) => {
-            if (event.keyCode !== 13) {
-                if (isShiftPressed) {
-                    dispatchText(event.key.toUpperCase());
-                } else {
-                    dispatchText(event.key);
-                }
-            }
-        });
-        window.addEventListener('keydown', (event) => {
-            dispatchKeyCode(event.keyCode);
-            if (event.shiftKey) {
-                setTogglerAction({ type: 'isShiftPressed', value: true });
-            }
-            if (event.keyCode === 8) {
-                removeLetterFromText();
-            }
-
-            console.log(event.keyCode);
-        });
-        window.addEventListener('keyup', (event) => {
-            dispatchKeyRemove();
-            if (!event.shiftKey) {
-                setTogglerAction({ type: 'isShiftPressed', value: false });
-            }
-        });
     }, []);
 
 

@@ -14,22 +14,28 @@ import * as S from './styles';
 
 // Types
 import { Message } from '../../../bus/messages/types';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 export const MessageComponent: FC<Message> = (props) => {
     const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
-    const { message, editMessage, deleteMessage } = useMessages();
+    const { message, editMessage, deleteMessage, createMessage  } = useMessages();
+
+    const { setTogglerAction, togglersRedux: { isInputFocused }} = useTogglersRedux();
 
     const alignMessage = user?.username === props?.username;
     const [ toggle, setToggle ] = useState(true);
-    const [ value, setValue ] = useState(`${message?.text}`);
+    const [ value, setValue ] = useState(`${props?.text}`);
 
     const editHandler = () => {
+        createMessage(props);
         setToggle(!toggle);
+        setTogglerAction({ type: 'isInputFocused', value: !isInputFocused });
     };
 
     const DeleteHandler = () => {
-        deleteMessage(`${message?._id}`);
+        createMessage(props); // its need to run UseEffect in Main/index.tsx // its create message in redux? and command below delete it immediately
+        deleteMessage(props._id);
     };
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +55,8 @@ export const MessageComponent: FC<Message> = (props) => {
         editMessage(editedMessage);
         setToggle(!toggle);
         event.currentTarget.reset();
+
+        console.log(editedMessage);
     };
 
     return (

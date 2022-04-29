@@ -73,7 +73,7 @@ export const Chat = styled.div`
     flex-direction: column-reverse;
     overflow-y: auto;
     border-radius: 2%;
-    height: 60%;
+    height: 50%;
     padding: 1%;
     justify-content: space-between;
     &::-webkit-scrollbar {
