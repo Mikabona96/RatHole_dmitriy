@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-closing-tag-location */
 // Core
-import moment from 'moment';
 import React, { FC, useEffect, useRef, useState } from 'react';
+import moment from 'moment';
+
+// Bus
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
 
@@ -16,15 +18,15 @@ import * as S from './styles';
 import { Message } from '../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
-    const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
     const { message, editMessage, deleteMessage, createMessage  } = useMessages();
-
-
-    const alignMessage = user?.username === props?.username;
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
+
+    const date = moment(props.createdAt).format('hh:mm:ss');
     const ref = useRef<HTMLInputElement | null>(null);
+    const alignMessage = user?.username === props?.username;
+
 
     const editHandler = () => {
         createMessage(props);

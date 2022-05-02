@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 // Components
 import { ErrorBoundary } from '../../components';
@@ -20,12 +20,15 @@ const Main: FC = () => {
     const { messages, fetchMessages, message } = useMessages();
     const { user, clearUser } = useUser();
     const { resetTogglersToInitial } = useTogglersRedux();
+    const [ openKeyboard, setOpenKeyboard ] = useState(true);
 
     const logOut = () => {
         localStorage.clear();
         clearUser();
         resetTogglersToInitial();
     };
+
+    const openKeyuboardHandler = () => setOpenKeyboard(!openKeyboard);
 
     useEffect(() => {
         fetchMessages();
@@ -50,7 +53,8 @@ const Main: FC = () => {
                     }
                 </S.Chat>
                 <InputChatComponent />
-                <Keyboard />
+                <S.OpenKeyboard onClick = { openKeyuboardHandler }>{openKeyboard ? 'CLOSE KEYBOARD' : 'OPEN KEYBOARD'}</S.OpenKeyboard>
+                { openKeyboard && <Keyboard /> }
             </S.Wrapper>
         </S.Container>
     );

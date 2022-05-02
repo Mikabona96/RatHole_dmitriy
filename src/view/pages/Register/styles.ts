@@ -1,5 +1,3 @@
-import backGround from '../../../assets/images/bg1.png';
-
 // Core
 import styled from 'styled-components';
 
@@ -8,7 +6,6 @@ export const Container = styled.section`
     justify-content: start;
     padding: 5% 10%;
     height: 100vh;
-    background-image: url(${backGround});
     background-size: cover;
     @media (min-width: 375px) {
         align-items: center;
@@ -62,6 +59,7 @@ export const Button = styled.button`
         padding: 0px 10px;
         border-radius: 5px;
         border: none;
+        color: white;
         outline: none;
         background-color: #f8483f;
         cursor: pointer;

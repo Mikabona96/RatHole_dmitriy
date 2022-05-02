@@ -7,21 +7,16 @@ import { useLocalStorage } from '../../../tools/hooks';
 
 // Bus
 import { useUser } from '../../../bus/user';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Components
 import { ErrorBoundary } from '../../components';
 
 // Styles
 import * as S from './styles';
-import { useTogglersRedux } from '../../../bus/client/togglers';
-
-// Types
-type PropTypes = {
-    /* type props here */
-}
 
 
-const RegistrationPage: FC<PropTypes> = () => {
+const RegistrationPage: FC = () => {
     const [ , setValue ] = useLocalStorage('userId', '');
     const { setTogglerAction } = useTogglersRedux();
     const [ inputValue, setInputValue ] = useState('');

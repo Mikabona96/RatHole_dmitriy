@@ -1,28 +1,24 @@
 // Core
 import React, { FC, useEffect, useRef } from 'react';
+
+// Bus
 import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useKeyCode } from '../../../bus/keyCode';
 import { useMessages } from '../../../bus/messages';
 import { useText } from '../../../bus/text';
 import { useUser } from '../../../bus/user';
 
-// Bus
-// import {} from '../../../bus/'
-
 // Styles
 import * as S from './styles';
 
-// Types
-type PropTypes = {
-    /* type props here */
-}
 
-export const InputChatComponent: FC<PropTypes> = () => {
+export const InputChatComponent: FC = () => {
     const { text, dispatchChangedText, dispatchClearText } = useText();
     const { user } = useUser();
     const { sendMessage } = useMessages();
     const { setTogglerAction } = useTogglersRedux();
     const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
+
     let inputRef = useRef<HTMLInputElement | null>(null);
 
     const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {

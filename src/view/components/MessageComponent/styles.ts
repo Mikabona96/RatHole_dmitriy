@@ -6,13 +6,13 @@ export const Container = styled.section`
     flex-direction: column;
     width: 200px;
     padding: 2%;
-    background: #ebebe2;
     border-radius: 7px;
     white-space: pre-wrap;
     text-align: left;
     margin: 1.5% 0;
     align-self: ${(props: {alignMessage: boolean}) => props.alignMessage ? 'flex-end' : 'flex-start'};
     overflow-wrap: break-word;
+    border: 1px solid #f8483f;
 `;
 export const MessageWrapper = styled.div`
     display: ${(props: {toggle: boolean}) => props.toggle ? '' : 'none'};
@@ -58,6 +58,7 @@ export const Button = styled.button`
     border: none;
     border-radius: 5px;
     padding: 5px;
+    color: #fff;
     &:hover {
             background-color: #f8483f;
         }

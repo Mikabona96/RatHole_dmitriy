@@ -42,6 +42,7 @@ export const Key = styled.div`
     cursor: pointer;
     user-select: none;
     color: ${(props: {colir: boolean}) => props.colir === true ? 'white' : 'black'};
+    overflow-wrap: break-word;
     &:active {
         background-color: #ff2f2f;
         color: white;

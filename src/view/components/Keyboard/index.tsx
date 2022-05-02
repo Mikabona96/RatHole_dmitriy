@@ -1,12 +1,13 @@
 // Core
 import React, { FC } from 'react';
+
+// Bus
 import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useKeyCode } from '../../../bus/keyCode';
 import { useText } from '../../../bus/text';
-import { useKeyboard } from '../../../tools/hooks/useKeyboard';
 
-// Bus
-// import {} from '../../../bus/'
+// Hooks
+import { useKeyboard } from '../../../tools/hooks/useKeyboard';
 
 // Styles
 import * as S from './styles';
@@ -16,7 +17,7 @@ export const Keyboard: FC = () => {
     const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();
     const { setTogglerAction, togglersRedux: { isShiftPressed }} = useTogglersRedux();
-    const { dispatchText } = useText();
+    const { dispatchText, dispatchRemoveLetterFromText } = useText();
 
 
     return (
@@ -112,7 +113,8 @@ export const Keyboard: FC = () => {
                                     return (
                                         <S.Key
                                             colir = { k.code === keycode }
-                                            key = { k.key }>{k.key}
+                                            key = { k.key }
+                                            onClick = { () => dispatchRemoveLetterFromText() }>{k.key}
                                         </S.Key>
                                     );
                                 default:

@@ -13,10 +13,12 @@ export const useText = () => {
     const dispatchText = (letter: string) => dispatch(textActions.setText(letter));
     const dispatchChangedText = (text: string) => dispatch(textActions.setChangedText(text));
     const dispatchClearText = () => dispatch(textActions.clearText());
+    const dispatchRemoveLetterFromText = () => dispatch(textActions.removeLetterFromText());
 
 
     return {
         text,
+        dispatchRemoveLetterFromText,
         dispatchText,
         dispatchChangedText,
         dispatchClearText,
