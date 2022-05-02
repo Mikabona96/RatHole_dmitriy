@@ -1,49 +1,68 @@
 // Core
-import React, { FC, useState } from 'react';
-import { useMessages } from '../../../bus/messages';
-import { useUser } from '../../../bus/user';
+import React, { FC, useEffect, useRef } from 'react';
 
 // Bus
-// import {} from '../../../bus/'
+import { useTogglersRedux } from '../../../bus/client/togglers';
+import { useKeyCode } from '../../../bus/keyCode';
+import { useMessages } from '../../../bus/messages';
+import { useText } from '../../../bus/text';
+import { useUser } from '../../../bus/user';
 
 // Styles
 import * as S from './styles';
 
-// Types
-type PropTypes = {
-    /* type props here */
-}
 
-export const InputChatComponent: FC<PropTypes> = () => {
-    const [ value, setValue ] = useState('');
+export const InputChatComponent: FC = () => {
+    const { text, dispatchChangedText, dispatchClearText } = useText();
     const { user } = useUser();
     const { sendMessage } = useMessages();
+    const { setTogglerAction } = useTogglersRedux();
+    const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
 
-    const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
+    let inputRef = useRef<HTMLInputElement | null>(null);
 
     const onButtonSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         sendMessage({
-            text:     value,
+            text:     text,
             username: user?.username,
         });
-        setValue('');
         event.currentTarget.reset();
+        dispatchClearText();
     };
+
+    useEffect(() => {
+        window.addEventListener('keydown', (event) => {
+            dispatchKeyCode(event.keyCode);
+            if (event.shiftKey) {
+                setTogglerAction({ type: 'isShiftPressed', value: true });
+            }
+            inputRef.current?.focus();
+        });
+        window.addEventListener('keyup', (event) => {
+            dispatchKeyRemove();
+            if (!event.shiftKey) {
+                setTogglerAction({ type: 'isShiftPressed', value: false });
+            }
+        });
+    }, []);
+
 
     return (
         <S.Container onSubmit = { onButtonSubmit }>
             <S.InputWrapper>
                 <input
+                    autoFocus
+                    ref = { inputRef }
                     type = 'text'
-                    value = { value }
-                    onChange = { onChangeInput }
+                    value = { text }
+                    onChange = { (event) => {
+                        dispatchChangedText(event.target.value);
+                    } }
                 />
             </S.InputWrapper>
             <S.Button
-                disabled = { value === '' }>SEND
+                disabled = { text === '' }>SEND
             </S.Button>
         </S.Container>
     );

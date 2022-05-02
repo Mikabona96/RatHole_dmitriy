@@ -15,16 +15,20 @@ export const InputWrapper = styled.div`
         width: 100%;
         border: 0;
         background-color: rgba(255,255,255, 0);
-        color: white;
+        color: black;
         font-size: 1rem;
         border-bottom: 2px solid #E84C3D;
         transition: all .2s ease-out;
         &:focus {
-            color: #ffffff;
+            color: black;
             border: none;
             outline: 0;
             outline-offset: 0;
             border-bottom: 2px solid #cd2b18;
+        }
+        &::selection {
+            background: #ec6859;
+            color: white;
         }
     }
 `;

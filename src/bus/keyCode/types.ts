@@ -2,11 +2,10 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
 // State
-export type KeyCode = number
+export type KeyCode = number[]
 export type Key = string
 export type KeyCodeState = {
-    keyCode: KeyCode | null
-    key: string | null
+    keyCode: KeyCode
 }
 
 // Contracts

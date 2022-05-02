@@ -9,6 +9,7 @@ const initialState = {
     isOnline:       navigator.onLine,
     isLoggedIn:     false,
     toggleKeyboard: true,
+    isShiftPressed: false,
 };
 
 // Types

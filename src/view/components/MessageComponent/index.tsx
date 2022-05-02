@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-closing-tag-location */
 // Core
+import React, { FC, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import React, { FC, useState } from 'react';
+
+// Bus
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
 
@@ -16,20 +18,30 @@ import * as S from './styles';
 import { Message } from '../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
-    const date = moment(props.createdAt).format('hh:mm:ss');
     const { user } = useUser();
-    const { message, editMessage, deleteMessage } = useMessages();
-
-    const alignMessage = user?.username === props?.username;
+    const { message, editMessage, deleteMessage, createMessage  } = useMessages();
     const [ toggle, setToggle ] = useState(true);
-    const [ value, setValue ] = useState(`${message?.text}`);
+    const [ value, setValue ] = useState(`${props?.text}`);
+
+    const date = moment(props.createdAt).format('hh:mm:ss');
+    const ref = useRef<HTMLInputElement | null>(null);
+    const alignMessage = user?.username === props?.username;
+
 
     const editHandler = () => {
+        createMessage(props);
         setToggle(!toggle);
     };
 
+    useEffect(() => {
+        window.addEventListener('keydown', () => {
+            ref.current?.focus(); // change focus on message Editing
+        });
+    }, []);
+
     const DeleteHandler = () => {
-        deleteMessage(`${message?._id}`);
+        createMessage(props); // its need to run UseEffect in Main/index.tsx // its create message in redux? and command below delete it immediately
+        deleteMessage(props._id);
     };
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +61,8 @@ export const MessageComponent: FC<Message> = (props) => {
         editMessage(editedMessage);
         setToggle(!toggle);
         event.currentTarget.reset();
+
+        console.log(editedMessage);
     };
 
     return (
@@ -89,6 +103,7 @@ export const MessageComponent: FC<Message> = (props) => {
                 toggle === false ? <S.Edit onSubmit = { onButtonSubmit }>
                     <S.InputWrapper>
                         <input
+                            ref = { ref }
                             type = 'text'
                             value = { value }
                             onChange = { onChangeInput }
