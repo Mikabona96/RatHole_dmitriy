@@ -31,7 +31,11 @@ const Main: FC = () => {
     const openKeyuboardHandler = () => setOpenKeyboard(!openKeyboard);
 
     useEffect(() => {
-        fetchMessages();
+        const timerId = setInterval(() => {
+            fetchMessages();
+        }, 2000);
+
+        return () => clearInterval(timerId);
     }, [ message ]);
 
 

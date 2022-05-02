@@ -1,4 +1,5 @@
 // Tools
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../tools/hooks';
 
@@ -14,6 +15,10 @@ export const useMessages = () => {
     const messages = useSelector((state) => state.messages.messages); // Add messages to ./src/init/redux/index.ts
     const message = useSelector((state) => state.messages.message); // Add messages to ./src/init/redux/index.ts
     const createMessage = (message: Message) => dispatch(messagesActions.createMessage(message));
+
+    useEffect(() => {
+        fetchMessages();
+    }, []);
 
     return {
         messages,
