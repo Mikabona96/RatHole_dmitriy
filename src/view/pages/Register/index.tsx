@@ -8,18 +8,17 @@ import { useLocalStorage } from '../../../tools/hooks';
 // Bus
 import { useUser } from '../../../bus/user';
 import { useTogglersRedux } from '../../../bus/client/togglers';
-
+import { v4 as uuidv4 } from 'uuid';
 // Components
 import { ErrorBoundary } from '../../components';
 
 // Styles
 import * as S from './styles';
 
-
 const RegistrationPage: FC = () => {
     const [ , setValue ] = useLocalStorage('userId', '');
     const { setTogglerAction } = useTogglersRedux();
-    const [ inputValue, setInputValue ] = useState('');
+    const [ inputValue, setInputValue ] = useState(`USER: ${uuidv4().slice(0, 5)}`);
     const { user, userRegister } = useUser();
 
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,7 +48,7 @@ const RegistrationPage: FC = () => {
                         value = { inputValue }
                         onChange = { onInputChange }
                     />
-                    <S.Button>Drop into hole!</S.Button>
+                    <S.Button disabled = { inputValue === '' }>Register!</S.Button>
                 </S.Form>
             </S.FormWrapper>
         </S.Container>

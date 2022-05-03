@@ -1,5 +1,5 @@
 // Core
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 // Components
 import { ErrorBoundary } from '../../components';
@@ -15,9 +15,8 @@ import * as S from './styles';
 import { InputChatComponent } from '../../components/InputChatComponent';
 import { Keyboard } from '../../components/Keyboard';
 
-
 const Main: FC = () => {
-    const { messages, fetchMessages } = useMessages();
+    const { messages } = useMessages(true);
     const { user, clearUser } = useUser();
     const { resetTogglersToInitial } = useTogglersRedux();
     const [ openKeyboard, setOpenKeyboard ] = useState(true);
@@ -29,11 +28,6 @@ const Main: FC = () => {
     };
 
     const openKeyuboardHandler = () => setOpenKeyboard(!openKeyboard);
-
-    useEffect(() => {
-        fetchMessages();
-    }, []);
-
 
     return (
         <S.Container>

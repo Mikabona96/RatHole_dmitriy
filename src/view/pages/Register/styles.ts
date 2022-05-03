@@ -3,18 +3,11 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     display: flex;
-    justify-content: start;
+    justify-content: center;
+    align-items: center;
     padding: 5% 10%;
     height: 100vh;
     background-size: cover;
-    @media (min-width: 375px) {
-        align-items: center;
-        justify-content: center;
-    }
-    @media (min-width: 768px) {
-        display: flex;
-        justify-content: start;
-    }
 `;
 export const FormWrapper = styled.div`
     display: flex;
@@ -69,5 +62,8 @@ export const Button = styled.button`
         }
         &:active {
             background-color: #f33232
+        }
+        &:disabled {
+            background-color: #f87e7e
         }
     `;

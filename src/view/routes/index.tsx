@@ -7,10 +7,10 @@ import { Private } from './Private';
 
 // Bus
 import { useTogglersRedux } from '../../bus/client/togglers';
+import { useUser } from '../../bus/user';
 
 // Elements
 import { Spinner } from '../elements';
-import { useUser } from '../../bus/user';
 
 export const Routes: FC = () => {
     const { togglersRedux: { isLoggedIn }} = useTogglersRedux();

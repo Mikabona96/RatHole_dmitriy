@@ -12,7 +12,6 @@ import { useKeyboard } from '../../../tools/hooks/useKeyboard';
 // Styles
 import * as S from './styles';
 
-
 export const Keyboard: FC = () => {
     const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();

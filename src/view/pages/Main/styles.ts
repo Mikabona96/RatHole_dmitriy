@@ -50,7 +50,7 @@ export const Button = styled.button`
         background-color: #000;
         padding: 2%;
         border: none;
-        border-radius: 4%;
+        border-radius: 5px;
         color: white;
         cursor: pointer;
         transition: .5s;

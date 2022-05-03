@@ -1,4 +1,5 @@
 // Tools
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../tools/hooks';
 
@@ -8,12 +9,20 @@ import { messagesActions } from './slice';
 
 import { Message } from './types';
 
-export const useMessages = () => {
+const isDevMode = process.env.NODE_ENV === 'development';
+
+export const useMessages = (isFetching?: true) => {
     const dispatch = useDispatch();
     const { fetchMessages, sendMessage, editMessage, deleteMessage } = useMessagesSaga();
     const messages = useSelector((state) => state.messages); // Add messages to ./src/init/redux/index.ts
     const createMessage = (message: Message) => dispatch(messagesActions.createMessage(message));
 
+    useEffect(() => {
+        isFetching && fetchMessages();
+        const timerId = setInterval(() => isFetching && fetchMessages(), isDevMode ? 10000 : 2000);
+
+        return () => clearInterval(timerId);
+    }, []);
 
     return {
         messages,
