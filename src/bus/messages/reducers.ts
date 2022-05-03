@@ -2,13 +2,23 @@
 import * as types from './types';
 
 export const setMessages: types.BaseContact<types.Messages> = (state, action) => {
-    state.messages = action.payload;
+    return action.payload;
+};
+export const addMessage: types.BaseContact<types.Message> = (state, action) => {
+    if (state) {
+        return [ action.payload, ...state ];
+    }
+
+    return state;
 };
 export const createMessage: types.BaseContact<types.Message> = (state, action) => {
-    state.message = action.payload;
+    if (state !== null) {
+        return state.filter((message) => message._id !== action.payload._id ? action.payload : message);
+    }
+
+    return state;
 };
 export const deleteMessage: types.BaseContact<string> = (state, action) => {
-    state.messages?.filter((message) => message._id !== action.payload);
-    state.message = state.message?._id === action.payload ? null : state.message;
+    return state?.filter((message) => message._id !== action.payload);
 };
 

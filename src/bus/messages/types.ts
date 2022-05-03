@@ -15,17 +15,12 @@ export type message = {
 }
 
 export type editedMessage = {
-    message: {
-        text: string,
-        id: string | undefined
-    }
+    text: string,
+    id: string | undefined
 }
 
 export type Messages = Array<Message>
-export type MessagesState = {
-    messages: Messages | null
-    message: Message | null
-}
+export type MessagesState = Array<Message> | null
 
 // Contracts
 export type BaseContact<T = any> = CaseReducer<MessagesState, PayloadAction<T>>

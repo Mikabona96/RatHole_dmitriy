@@ -19,7 +19,7 @@ import { Message } from '../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
-    const { message, editMessage, deleteMessage, createMessage  } = useMessages();
+    const { editMessage, deleteMessage, fetchMessages } = useMessages();
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
 
@@ -29,7 +29,6 @@ export const MessageComponent: FC<Message> = (props) => {
 
 
     const editHandler = () => {
-        createMessage(props);
         setToggle(!toggle);
     };
 
@@ -40,7 +39,6 @@ export const MessageComponent: FC<Message> = (props) => {
     }, []);
 
     const DeleteHandler = () => {
-        createMessage(props); // its need to run UseEffect in Main/index.tsx // its create message in redux? and command below delete it immediately
         deleteMessage(props._id);
     };
 
@@ -52,12 +50,9 @@ export const MessageComponent: FC<Message> = (props) => {
     const onButtonSubmit = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const editedMessage = {
-            message: {
-                text: value,
-                id:   message?._id,
-            },
+            text: value,
+            id:   props?._id,
         };
-        setValue('');
         editMessage(editedMessage);
         setToggle(!toggle);
         event.currentTarget.reset();

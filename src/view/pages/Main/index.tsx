@@ -17,7 +17,7 @@ import { Keyboard } from '../../components/Keyboard';
 
 
 const Main: FC = () => {
-    const { messages, fetchMessages, message } = useMessages();
+    const { messages, fetchMessages } = useMessages();
     const { user, clearUser } = useUser();
     const { resetTogglersToInitial } = useTogglersRedux();
     const [ openKeyboard, setOpenKeyboard ] = useState(true);
@@ -31,12 +31,8 @@ const Main: FC = () => {
     const openKeyuboardHandler = () => setOpenKeyboard(!openKeyboard);
 
     useEffect(() => {
-        const timerId = setInterval(() => {
-            fetchMessages();
-        }, 2000);
-
-        return () => clearInterval(timerId);
-    }, [ message ]);
+        fetchMessages();
+    }, []);
 
 
     return (
