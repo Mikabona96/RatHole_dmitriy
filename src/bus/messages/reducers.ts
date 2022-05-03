@@ -13,7 +13,7 @@ export const addMessage: types.BaseContact<types.Message> = (state, action) => {
 };
 export const createMessage: types.BaseContact<types.Message> = (state, action) => {
     if (state !== null) {
-        return state.filter((message) => message._id !== action.payload._id ? action.payload : message);
+        return state.map((message) => message._id === action.payload._id ? action.payload : message);
     }
 
     return state;
