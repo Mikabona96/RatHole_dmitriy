@@ -19,7 +19,7 @@ import { Message } from '../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
-    const { editMessage, deleteMessage, fetchMessages } = useMessages();
+    const { editMessage, deleteMessage } = useMessages();
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
 
