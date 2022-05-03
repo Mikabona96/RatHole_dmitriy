@@ -11,7 +11,6 @@ import { useUser } from '../../../bus/user';
 // Styles
 import * as S from './styles';
 
-
 export const InputChatComponent: FC = () => {
     const { text, dispatchChangedText, dispatchClearText } = useText();
     const { user } = useUser();
@@ -38,6 +37,7 @@ export const InputChatComponent: FC = () => {
                 setTogglerAction({ type: 'isShiftPressed', value: true });
             }
             inputRef.current?.focus();
+            inputRef.current?.selectionEnd;
         });
         window.addEventListener('keyup', (event) => {
             dispatchKeyRemove();
@@ -59,6 +59,11 @@ export const InputChatComponent: FC = () => {
                     onChange = { (event) => {
                         dispatchChangedText(event.target.value);
                     } }
+                    onFocus = { (event: React.FocusEvent<HTMLInputElement, Element>) => {
+                        event.currentTarget
+                            .setSelectionRange(event.currentTarget.value.length, event.currentTarget.value.length);
+                    }
+                    }
                 />
             </S.InputWrapper>
             <S.Button

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react/jsx-closing-tag-location */
 // Core
 import React, { FC, useEffect, useRef, useState } from 'react';
@@ -14,22 +15,24 @@ import edit from '../../../assets/icons/ed.svg';
 // Styles
 import * as S from './styles';
 
+// Components
+import { PopUp } from './PopUp';
+
 // Types
 import { Message } from '../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
-    const { message, editMessage, deleteMessage, createMessage  } = useMessages();
+    const { editMessage, deleteMessage } = useMessages();
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
+    const [ popUp, setPopUp ] = useState(false);
 
     const date = moment(props.createdAt).format('hh:mm:ss');
     const ref = useRef<HTMLInputElement | null>(null);
     const alignMessage = user?.username === props?.username;
 
-
     const editHandler = () => {
-        createMessage(props);
         setToggle(!toggle);
     };
 
@@ -40,29 +43,22 @@ export const MessageComponent: FC<Message> = (props) => {
     }, []);
 
     const DeleteHandler = () => {
-        createMessage(props); // its need to run UseEffect in Main/index.tsx // its create message in redux? and command below delete it immediately
-        deleteMessage(props._id);
+        setPopUp(true);
     };
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
     };
 
-
     const onButtonSubmit = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const editedMessage = {
-            message: {
-                text: value,
-                id:   message?._id,
-            },
+            text: value,
+            id:   props?._id,
         };
-        setValue('');
         editMessage(editedMessage);
         setToggle(!toggle);
         event.currentTarget.reset();
-
-        console.log(editedMessage);
     };
 
     return (
@@ -107,12 +103,27 @@ export const MessageComponent: FC<Message> = (props) => {
                             type = 'text'
                             value = { value }
                             onChange = { onChangeInput }
+                            onFocus = { (event: React.FocusEvent<HTMLInputElement, Element>) => {
+                                event.currentTarget
+                                    .setSelectionRange(
+                                        event.currentTarget.value.length, event.currentTarget.value.length,
+                                    );
+                            }
+                            }
                         />
                     </S.InputWrapper>
                     <S.Button
                         disabled = { value === '' }>Update
                     </S.Button>
                 </S.Edit> : null
+            }
+
+            {
+                popUp && <PopUp
+                    deleteMessage = { deleteMessage }
+                    id = { props._id }
+                    setPopUp = { setPopUp }
+                />
             }
 
         </S.Container>

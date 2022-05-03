@@ -31,7 +31,7 @@ const sendMessage = (callAction: ReturnType<typeof sendMessageAction>) => makeRe
         }),
     },
     succes: function* (result) {
-        yield put(messagesActions.createMessage(result));
+        yield put(messagesActions.addMessage(result));
     },
 });
 

@@ -22,12 +22,12 @@ const editMessage = (callAction: ReturnType<typeof editMessageAction>) => makeRe
     callAction,
     fetchOptions: {
         successStatusCode: 200,
-        fetch:             () => fetch(`${API_URL}/messages/${callAction.payload.message.id}`, {
+        fetch:             () => fetch(`${API_URL}/messages/${callAction.payload.id}`, {
             method:  'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ text: callAction.payload.message.text }),
+            body: JSON.stringify({ text: callAction.payload.text }),
         }),
     },
     succes: function* (result) {
