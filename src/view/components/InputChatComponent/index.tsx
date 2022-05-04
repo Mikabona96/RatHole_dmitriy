@@ -30,21 +30,24 @@ export const InputChatComponent: FC = () => {
         dispatchClearText();
     };
 
+    const keyDownListener = (event: KeyboardEvent) => {
+        dispatchKeyCode(event.keyCode);
+        if (event.shiftKey) {
+            setTogglerAction({ type: 'isShiftPressed', value: true });
+        }
+        inputRef.current?.focus();
+        inputRef.current?.selectionEnd;
+    };
+    const keyUpListener = (event: KeyboardEvent) => {
+        dispatchKeyRemove();
+        if (!event.shiftKey) {
+            setTogglerAction({ type: 'isShiftPressed', value: false });
+        }
+    };
+
     useEffect(() => {
-        window.addEventListener('keydown', (event) => {
-            dispatchKeyCode(event.keyCode);
-            if (event.shiftKey) {
-                setTogglerAction({ type: 'isShiftPressed', value: true });
-            }
-            inputRef.current?.focus();
-            inputRef.current?.selectionEnd;
-        });
-        window.addEventListener('keyup', (event) => {
-            dispatchKeyRemove();
-            if (!event.shiftKey) {
-                setTogglerAction({ type: 'isShiftPressed', value: false });
-            }
-        });
+        window.addEventListener('keydown', keyDownListener);
+        window.addEventListener('keyup', keyUpListener);
     }, []);
 
 

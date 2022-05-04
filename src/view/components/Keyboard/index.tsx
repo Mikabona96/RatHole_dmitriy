@@ -12,12 +12,21 @@ import { useKeyboard } from '../../../tools/hooks/useKeyboard';
 // Styles
 import * as S from './styles';
 
+// Types
+type KeyParams = {
+    key: string
+    code: string
+}
+
 export const Keyboard: FC = () => {
     const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();
     const { setTogglerAction, togglersRedux: { isShiftPressed }} = useTogglersRedux();
     const { dispatchText, dispatchRemoveLetterFromText } = useText();
 
+    const clickAsKeyboardEvent = (keyParameters: KeyParams) => {
+        window.dispatchEvent(new KeyboardEvent('keydown', keyParameters));
+    };
 
     return (
         <S.LayOut>
@@ -32,6 +41,7 @@ export const Keyboard: FC = () => {
                                     colir = { k.code === keycode }
                                     key = { k.key }
                                     onClick = { () => {
+                                        clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         dispatchText(k.key);
                                     } }>{k.key}
                                 </S.Key>
@@ -53,6 +63,7 @@ export const Keyboard: FC = () => {
                                     colir = { k.code === keycode }
                                     key = { k.key }
                                     onClick = { () => {
+                                        clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         if (isShiftPressed) {
                                             dispatchText(k.key.toUpperCase());
                                         } else {
@@ -78,6 +89,7 @@ export const Keyboard: FC = () => {
                                     colir = { k.code === keycode }
                                     key = { k.key }
                                     onClick = { () => {
+                                        clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         if (isShiftPressed) {
                                             dispatchText(k.key.toUpperCase());
                                         } else {
@@ -104,6 +116,7 @@ export const Keyboard: FC = () => {
                                             colir = { isShiftPressed }
                                             key = { k.key }
                                             onClick = { () => {
+                                                clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 setTogglerAction({ type: 'isShiftPressed', value: !isShiftPressed });
                                             } }>{k.key}
                                         </S.Key>
@@ -113,7 +126,10 @@ export const Keyboard: FC = () => {
                                         <S.Key
                                             colir = { k.code === keycode }
                                             key = { k.key }
-                                            onClick = { () => dispatchRemoveLetterFromText() }>{k.key}
+                                            onClick = { () => {
+                                                clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
+                                                dispatchRemoveLetterFromText();
+                                            } }>{k.key}
                                         </S.Key>
                                     );
                                 default:
@@ -122,6 +138,7 @@ export const Keyboard: FC = () => {
                                             colir = { k.code === keycode }
                                             key = { k.key }
                                             onClick = { () => {
+                                                clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 if (isShiftPressed) {
                                                     dispatchText(k.key.toUpperCase());
                                                 } else {
@@ -165,6 +182,7 @@ export const Keyboard: FC = () => {
                                             colir = { k.code === keycode }
                                             key = { k.key }
                                             onClick = { () => {
+                                                clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 dispatchText(' ');
                                             } }>{k.key}
                                         </S.Key>
@@ -175,6 +193,7 @@ export const Keyboard: FC = () => {
                                             colir = { k.code === keycode }
                                             key = { k.key }
                                             onClick = { () => {
+                                                clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 if (isShiftPressed) {
                                                     dispatchText(k.key.toUpperCase());
                                                 } else {
