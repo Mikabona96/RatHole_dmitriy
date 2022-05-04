@@ -3,14 +3,14 @@
 // Core
 import React, { FC, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Bus
 import { useMessages } from '../../../bus/messages';
 import { useUser } from '../../../bus/user';
 
-// Assets
-import del from '../../../assets/icons/del.svg';
-import edit from '../../../assets/icons/ed.svg';
 
 // Styles
 import * as S from './styles';
@@ -20,6 +20,7 @@ import { PopUp } from './PopUp';
 
 // Types
 import { Message } from '../../../bus/messages/types';
+
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
@@ -66,16 +67,14 @@ export const MessageComponent: FC<Message> = (props) => {
             <S.Buttons alignMessage = { alignMessage }>
                 <S.ButtonsWrapper>
                     <S.Delete onClick = { DeleteHandler }>
-                        <img
-                            alt = ''
-                            src = { del }
-                        />
+                        <FontAwesomeIcon
+                            color = 'black'
+                            icon = { faTrash } />;
                     </S.Delete>
                     <S.EditButton onClick = { editHandler }>
-                        <img
-                            alt = ''
-                            src = { edit }
-                        />
+                        <FontAwesomeIcon
+                            color = 'black'
+                            icon = { faPencilAlt } />;
                     </S.EditButton>
                 </S.ButtonsWrapper>
             </S.Buttons>
