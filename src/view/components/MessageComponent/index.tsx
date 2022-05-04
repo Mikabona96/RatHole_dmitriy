@@ -20,6 +20,7 @@ import { PopUp } from './PopUp';
 
 // Types
 import { Message } from '../../../bus/messages/types';
+import { useTogglersRedux } from '../../../bus/client/togglers';
 
 
 export const MessageComponent: FC<Message> = (props) => {
@@ -28,6 +29,7 @@ export const MessageComponent: FC<Message> = (props) => {
     const [ toggle, setToggle ] = useState(true);
     const [ value, setValue ] = useState(`${props?.text}`);
     const [ popUp, setPopUp ] = useState(false);
+    const { togglersRedux:{ isSecondInput }, setTogglerAction } = useTogglersRedux();
 
     const date = moment(props.createdAt).format('hh:mm:ss');
     const ref = useRef<HTMLInputElement | null>(null);
@@ -35,6 +37,7 @@ export const MessageComponent: FC<Message> = (props) => {
 
     const editHandler = () => {
         setToggle(!toggle);
+        setTogglerAction({ type: 'isSecondInput', value: !isSecondInput });
     };
 
     useEffect(() => {

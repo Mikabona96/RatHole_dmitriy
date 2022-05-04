@@ -10,6 +10,7 @@ const initialState = {
     isLoggedIn:     false,
     toggleKeyboard: true,
     isShiftPressed: false,
+    isSecondInput:  false,
 };
 
 // Types
