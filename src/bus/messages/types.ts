@@ -9,7 +9,7 @@ export type Message = {
     'createdAt': string,
     'updatedAt': string
 }
-export type message = {
+export type SendMessage = {
     text: string
     username: string | undefined
 }

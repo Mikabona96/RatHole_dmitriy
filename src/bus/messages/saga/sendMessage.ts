@@ -11,10 +11,10 @@ import { makeRequest } from '../../../tools/utils';
 import { API_URL } from '../../../init/constants';
 
 // Types
-import { Message, message } from '../types';
+import { Message, SendMessage } from '../types';
 
 // Action
-export const sendMessageAction = createAction<message>(`${sliceName}/SEND_MESSAGE_ASYNC`);
+export const sendMessageAction = createAction<SendMessage>(`${sliceName}/SEND_MESSAGE_ASYNC`);
 
 
 // Saga

@@ -4,6 +4,8 @@ import React, { FC, useState } from 'react';
 // Components
 import { ErrorBoundary } from '../../components';
 import { MessageComponent } from '../../components/MessageComponent';
+import { InputChatComponent } from '../../components/InputChatComponent';
+import { Keyboard } from '../../components/Keyboard';
 
 // Hooks
 import { useMessages } from '../../../bus/messages';
@@ -12,8 +14,6 @@ import { useTogglersRedux } from '../../../bus/client/togglers';
 
 // Styles
 import * as S from './styles';
-import { InputChatComponent } from '../../components/InputChatComponent';
-import { Keyboard } from '../../components/Keyboard';
 
 const Main: FC = () => {
     const { messages } = useMessages(true);

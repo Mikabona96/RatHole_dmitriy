@@ -9,7 +9,11 @@ import { messagesActions } from './slice';
 
 import { Message } from './types';
 
-const isDevMode = process.env.NODE_ENV === 'development';
+enum ProjectMode {
+    DEVELOPMENT='development'
+}
+
+const isDevMode = process.env.NODE_ENV === ProjectMode.DEVELOPMENT;
 
 export const useMessages = (isFetching?: true) => {
     const dispatch = useDispatch();
