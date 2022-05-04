@@ -114,10 +114,7 @@ export const MessageComponent: FC<Message> = (props) => {
                             value = { editedMessageText }
                             onChange = { onChangeInput }
                             onFocus = { (event: React.FocusEvent<HTMLInputElement, Element>) => {
-                                event.currentTarget
-                                    .setSelectionRange(
-                                        event.currentTarget.value.length, event.currentTarget.value.length,
-                                    );
+                                event.currentTarget.selectionEnd;
                             }
                             }
                         />
