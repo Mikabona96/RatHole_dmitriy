@@ -7,6 +7,8 @@ import user from '../../bus/user/slice';
 import messages from '../../bus/messages/slice';
 import keyCode from '../../bus/keyCode/slice';
 import text from '../../bus/text/slice';
+import editMessageText from '../../bus/editingMessageText/slice';
+
 // import __entityName__ from '../../bus/__entityName__/slice';
 
 // Middleware
@@ -22,6 +24,7 @@ export const store = configureStore({
         messages,
         keyCode,
         text,
+        editMessageText,
         // __entityName__,
     },
     middleware,

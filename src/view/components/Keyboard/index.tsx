@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useKeyCode } from '../../../bus/keyCode';
 import { useText } from '../../../bus/text';
+import { useEditingMessageText } from '../../../bus/editingMessageText';
 
 // Hooks
 import { useKeyboard } from '../../../tools/hooks/useKeyboard';
@@ -15,12 +16,12 @@ import { clickAsKeyboardEvent } from '../../../tools/helpers/clickAsKeyboardEven
 // Styles
 import * as S from './styles';
 
-
 export const Keyboard: FC = () => {
     const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();
     const { setTogglerAction, togglersRedux: { isShiftPressed, isSecondInput }} = useTogglersRedux();
     const { dispatchText, dispatchRemoveLetterFromText } = useText();
+    const { dispatchEditText, dispatchEditRemoveLetterFromText } = useEditingMessageText();
 
     return (
         <S.LayOut>
@@ -37,6 +38,7 @@ export const Keyboard: FC = () => {
                                     onClick = { () => {
                                         clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         !isSecondInput && dispatchText(k.key);
+                                        isSecondInput && dispatchEditText(k.key);
                                     } }>{k.key}
                                 </S.Key>
                             );
@@ -60,8 +62,10 @@ export const Keyboard: FC = () => {
                                         clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         if (isShiftPressed) {
                                             !isSecondInput && dispatchText(k.key.toUpperCase());
+                                            isSecondInput && dispatchEditText(k.key.toUpperCase());
                                         } else {
                                             !isSecondInput && dispatchText(k.key);
+                                            isSecondInput && dispatchEditText(k.key);
                                         }
                                     } }>{isShiftPressed ? k.key.toUpperCase() : k.key}
                                 </S.Key>
@@ -86,8 +90,10 @@ export const Keyboard: FC = () => {
                                         clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                         if (isShiftPressed) {
                                             !isSecondInput && dispatchText(k.key.toUpperCase());
+                                            isSecondInput && dispatchEditText(k.key.toUpperCase());
                                         } else {
                                             !isSecondInput && dispatchText(k.key);
+                                            isSecondInput && dispatchEditText(k.key);
                                         }
                                     } }>{isShiftPressed ? k.key.toUpperCase() : k.key}
                                 </S.Key>
@@ -122,7 +128,8 @@ export const Keyboard: FC = () => {
                                             key = { k.key }
                                             onClick = { () => {
                                                 clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
-                                                dispatchRemoveLetterFromText();
+                                                !isSecondInput && dispatchRemoveLetterFromText();
+                                                isSecondInput && dispatchEditRemoveLetterFromText();
                                             } }>{k.key}
                                         </S.Key>
                                     );
@@ -135,8 +142,10 @@ export const Keyboard: FC = () => {
                                                 clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 if (isShiftPressed) {
                                                     !isSecondInput && dispatchText(k.key.toUpperCase());
+                                                    isSecondInput && dispatchEditText(k.key.toUpperCase());
                                                 } else {
                                                     !isSecondInput && dispatchText(k.key);
+                                                    isSecondInput && dispatchEditText(k.key);
                                                 }
                                             } }>{isShiftPressed ? k.key.toUpperCase() : k.key}
                                         </S.Key>
@@ -177,6 +186,7 @@ export const Keyboard: FC = () => {
                                             onClick = { () => {
                                                 clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 !isSecondInput && dispatchText(' ');
+                                                isSecondInput && dispatchEditText(' ');
                                             } }>{k.key}
                                         </S.Key>
                                     );
@@ -188,6 +198,7 @@ export const Keyboard: FC = () => {
                                             onClick = { () => {
                                                 clickAsKeyboardEvent({ key: k.key, code: `${k.code}` });
                                                 !isSecondInput && dispatchText(k.key);
+                                                isSecondInput && dispatchEditText(k.key);
                                             } }>{k.key}
                                         </S.Key>
                                     );

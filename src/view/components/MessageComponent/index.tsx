@@ -21,23 +21,31 @@ import { PopUp } from './PopUp';
 // Types
 import { Message } from '../../../bus/messages/types';
 import { useTogglersRedux } from '../../../bus/client/togglers';
+import { useEditingMessageText } from '../../../bus/editingMessageText';
 
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
     const { editMessage, deleteMessage } = useMessages();
     const [ toggle, setToggle ] = useState(true);
-    const [ value, setValue ] = useState(`${props?.text}`);
     const [ popUp, setPopUp ] = useState(false);
     const { togglersRedux:{ isSecondInput }, setTogglerAction } = useTogglersRedux();
+    const {
+        editedMessageText,
+        dispatchEditText,
+        dispatchEditChangedText,
+        dispatchEditClearText,
+    } = useEditingMessageText();
 
     const date = moment(props.createdAt).format('hh:mm:ss');
     const ref = useRef<HTMLInputElement | null>(null);
     const alignMessage = user?.username === props?.username;
 
     const editHandler = () => {
-        setToggle(!toggle);
         setTogglerAction({ type: 'isSecondInput', value: !isSecondInput });
+        setToggle(!toggle);
+        !isSecondInput && dispatchEditText(props.text);
+        isSecondInput && dispatchEditClearText();
     };
 
     useEffect(() => {
@@ -51,13 +59,13 @@ export const MessageComponent: FC<Message> = (props) => {
     };
 
     const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
+        dispatchEditChangedText(event.target.value);
     };
 
     const onButtonSubmit = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const editedMessage = {
-            text: value,
+            text: editedMessageText,
             id:   props?._id,
         };
         editMessage(editedMessage);
@@ -103,7 +111,7 @@ export const MessageComponent: FC<Message> = (props) => {
                         <input
                             ref = { ref }
                             type = 'text'
-                            value = { value }
+                            value = { editedMessageText }
                             onChange = { onChangeInput }
                             onFocus = { (event: React.FocusEvent<HTMLInputElement, Element>) => {
                                 event.currentTarget
@@ -115,7 +123,7 @@ export const MessageComponent: FC<Message> = (props) => {
                         />
                     </S.InputWrapper>
                     <S.Button
-                        disabled = { value === '' }>Update
+                        disabled = { editedMessageText === '' }>Update
                     </S.Button>
                 </S.Edit> : null
             }
