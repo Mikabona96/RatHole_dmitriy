@@ -30,43 +30,11 @@ export const Wrapper = styled.main`
     }
     `;
 
-export const Header = styled.div`
-    display: flex;
-    padding: 0 2%;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    color: black;
-    margin-bottom: 2%;
-
-    p {
-        font-size: 1.5rem;
-    }
-    `;
-export const Username = styled.span`
-    color: #E84C3D;
-    `;
-export const Button = styled.button`
-        background-color: #000;
-        padding: 2%;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        cursor: pointer;
-        transition: .5s;
-        &:hover {
-            background-color: #f8483f;
-        }
-        @media (min-width: 375px) {
-            background-color: #E84C3D;
-        }
-        
-    `;
 export const OpenKeyboard = styled.button`
     background-color: #000;
         padding: 2%;
         border: none;
-        border-radius: 4%;
+        border-radius: 5px;
         color: white;
         cursor: pointer;
         transition: .5s;
@@ -81,27 +49,3 @@ export const OpenKeyboard = styled.button`
         }
 `;
 
-export const Chat = styled.div`
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: auto;
-    border-radius: 2%;
-    height: 50%;
-    padding: 1%;
-    justify-content: space-between;
-    &::-webkit-scrollbar {
-		width: 0.5rem;
-        border-radius: 2%;
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: #E84C3D;
-        border-radius: 10px;
-	}
-	&::-webkit-scrollbar-track {
-	    background: #f9cdc8;
-	}
-	z-index: 50;
-    @media (max-width: 768px) {
-            height: 100vh;
-        }
-`;

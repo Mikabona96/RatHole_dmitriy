@@ -8,8 +8,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Bus
-import { useMessages } from '../../../bus/messages';
-import { useUser } from '../../../bus/user';
+import { useMessages } from '../../../../bus/messages';
+import { useUser } from '../../../../bus/user';
+import { useEditingMessageText } from '../../../../bus/editingMessageText';
 
 
 // Styles
@@ -19,16 +20,13 @@ import * as S from './styles';
 import { PopUp } from './PopUp';
 
 // Types
-import { Message } from '../../../bus/messages/types';
-import { useTogglersRedux } from '../../../bus/client/togglers';
-import { useEditingMessageText } from '../../../bus/editingMessageText';
+import { Message } from '../../../../bus/messages/types';
 
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
-    const { editMessage, deleteMessage } = useMessages();
     const [ toggle, setToggle ] = useState(true);
     const [ popUp, setPopUp ] = useState(false);
-    const { togglersRedux:{ isSecondInput }, setTogglerAction } = useTogglersRedux();
+    const { editMessage, deleteMessage, isSecondInput, setTogglerAction } = useMessages();
     const {
         editedMessageText,
         dispatchEditText,

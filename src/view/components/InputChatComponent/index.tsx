@@ -2,21 +2,19 @@
 import React, { FC, useEffect, useRef } from 'react';
 
 // Bus
-import { useTogglersRedux } from '../../../bus/client/togglers';
-import { useKeyCode } from '../../../bus/keyCode';
-import { useMessages } from '../../../bus/messages';
 import { useText } from '../../../bus/text';
 import { useUser } from '../../../bus/user';
+import { useKeyCode } from '../../../bus/keyCode';
+import { useMessages } from '../../../bus/messages';
 
 // Styles
 import * as S from './styles';
 
 export const InputChatComponent: FC = () => {
-    const { text, dispatchChangedText, dispatchClearText } = useText();
     const { user } = useUser();
-    const { sendMessage } = useMessages();
-    const { setTogglerAction } = useTogglersRedux();
+    const { sendMessage, setTogglerAction } = useMessages();
     const { dispatchKeyCode, dispatchKeyRemove } = useKeyCode();
+    const { text, dispatchChangedText, dispatchClearText } = useText();
 
     let inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -34,7 +32,6 @@ export const InputChatComponent: FC = () => {
         dispatchKeyCode(event.keyCode);
         if (event.shiftKey) {
             setTogglerAction({ type: 'isShiftPressed', value: true });
-            console.log(event.keyCode);
         }
         inputRef.current?.focus();
         inputRef.current?.selectionEnd;

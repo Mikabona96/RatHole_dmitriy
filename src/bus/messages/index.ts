@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../tools/hooks';
+import { useTogglersRedux } from '../client/togglers';
 
 // Saga
 import { useMessagesSaga } from './saga';
@@ -20,6 +21,8 @@ export const useMessages = (isFetching?: true) => {
     const { fetchMessages, sendMessage, editMessage, deleteMessage } = useMessagesSaga();
     const messages = useSelector((state) => state.messages); // Add messages to ./src/init/redux/index.ts
     const createMessage = (message: Message) => dispatch(messagesActions.createMessage(message));
+    const { resetTogglersToInitial, togglersRedux:{ isSecondInput }, setTogglerAction  } = useTogglersRedux();
+
 
     useEffect(() => {
         isFetching && fetchMessages();
@@ -35,5 +38,9 @@ export const useMessages = (isFetching?: true) => {
         editMessage,
         deleteMessage,
         createMessage,
+        resetTogglersToInitial,
+        isSecondInput,
+        setTogglerAction,
+
     };
 };

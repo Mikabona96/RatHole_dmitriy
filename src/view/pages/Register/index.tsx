@@ -1,6 +1,7 @@
 /* eslint-disable id-blacklist */
 // Core
 import React, { FC, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 // Hooks
 import { useLocalStorage } from '../../../tools/hooks';
@@ -8,7 +9,6 @@ import { useLocalStorage } from '../../../tools/hooks';
 // Bus
 import { useUser } from '../../../bus/user';
 import { useTogglersRedux } from '../../../bus/client/togglers';
-import { v4 as uuidv4 } from 'uuid';
 
 // Components
 import { ErrorBoundary } from '../../components';

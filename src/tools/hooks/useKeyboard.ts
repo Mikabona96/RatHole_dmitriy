@@ -2,7 +2,7 @@ import { useTogglersRedux } from '../../bus/client/togglers';
 
 
 export const useKeyboard = () => {
-    const { togglersRedux: { toggleKeyboard, isShiftPressed }, setTogglerAction } = useTogglersRedux();
+    const { togglersRedux: { toggleKeyboard, isShiftPressed, isSecondInput }, setTogglerAction } = useTogglersRedux();
     const enLayout = {
         firstRow: {
             keys: [
@@ -162,5 +162,8 @@ export const useKeyboard = () => {
         LayOut,
         toggleLayout,
         toggleKeyboard,
+        isSecondInput,
+        isShiftPressed,
+        setTogglerAction,
     };
 };

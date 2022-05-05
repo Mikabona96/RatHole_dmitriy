@@ -2,7 +2,6 @@
 import React, { FC } from 'react';
 
 // Bus
-import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useKeyCode } from '../../../bus/keyCode';
 import { useText } from '../../../bus/text';
 import { useEditingMessageText } from '../../../bus/editingMessageText';
@@ -17,11 +16,10 @@ import { clickAsKeyboardEvent } from '../../../tools/helpers/clickAsKeyboardEven
 import * as S from './styles';
 
 export const Keyboard: FC = () => {
-    const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();
-    const { setTogglerAction, togglersRedux: { isShiftPressed, isSecondInput }} = useTogglersRedux();
     const { dispatchText, dispatchRemoveLetterFromText } = useText();
     const { dispatchEditText, dispatchEditRemoveLetterFromText } = useEditingMessageText();
+    const { LayOut, toggleKeyboard, toggleLayout, setTogglerAction, isShiftPressed, isSecondInput } = useKeyboard();
 
     return (
         <S.LayOut>
