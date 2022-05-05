@@ -34,6 +34,7 @@ export const InputChatComponent: FC = () => {
         dispatchKeyCode(event.keyCode);
         if (event.shiftKey) {
             setTogglerAction({ type: 'isShiftPressed', value: true });
+            console.log(event.keyCode);
         }
         inputRef.current?.focus();
         inputRef.current?.selectionEnd;

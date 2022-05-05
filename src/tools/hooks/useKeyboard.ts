@@ -2,7 +2,7 @@ import { useTogglersRedux } from '../../bus/client/togglers';
 
 
 export const useKeyboard = () => {
-    const { togglersRedux: { toggleKeyboard }, setTogglerAction } = useTogglersRedux();
+    const { togglersRedux: { toggleKeyboard, isShiftPressed }, setTogglerAction } = useTogglersRedux();
     const enLayout = {
         firstRow: {
             keys: [
@@ -142,10 +142,10 @@ export const useKeyboard = () => {
         },
         fifthRow: {
             keys: [
-                { key: ',', code: 188 },
+                { key: ',', code: isShiftPressed && 191 },
                 { key: 'Ru', code: 190454634 },
                 { key: 'Space', code: 32 },
-                { key: '.', code: 190 },
+                { key: '.', code: !isShiftPressed && 191 },
                 { key: 'Enter', code: 13 },
             ],
             style: '30px / repeat(2, 1fr) 3fr repeat(2, 1fr)',
