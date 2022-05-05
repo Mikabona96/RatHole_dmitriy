@@ -8,8 +8,8 @@ export const setKeyCode: types.BaseContact<number> = (state, action) => {
     state.keyCode = [ ...state.keyCode, action.payload ];
 };
 
-export const setKeyDefault = () => {
-    return {
-        keyCode: [],
-    };
+export const setKeyDefault: types.BaseContact<number> = (state, action) => {
+    const filteredKeyCodes = state.keyCode?.filter((key) => key !== action.payload);
+
+    state.keyCode = filteredKeyCodes;
 };

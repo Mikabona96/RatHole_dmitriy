@@ -39,7 +39,7 @@ export const InputChatComponent: FC = () => {
         inputRef.current?.selectionEnd;
     };
     const keyUpListener = (event: KeyboardEvent) => {
-        dispatchKeyRemove();
+        dispatchKeyRemove(event.keyCode);
         if (!event.shiftKey) {
             setTogglerAction({ type: 'isShiftPressed', value: false });
         }
