@@ -23,7 +23,6 @@ import { Message } from '../../../bus/messages/types';
 import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useEditingMessageText } from '../../../bus/editingMessageText';
 
-
 export const MessageComponent: FC<Message> = (props) => {
     const { user } = useUser();
     const { editMessage, deleteMessage } = useMessages();
@@ -45,7 +44,7 @@ export const MessageComponent: FC<Message> = (props) => {
         setTogglerAction({ type: 'isSecondInput', value: !isSecondInput });
         setToggle(!toggle);
         !isSecondInput && dispatchEditText(props.text);
-        isSecondInput && dispatchEditClearText();
+        dispatchEditClearText();
     };
 
     useEffect(() => {
@@ -70,7 +69,9 @@ export const MessageComponent: FC<Message> = (props) => {
         };
         editMessage(editedMessage);
         setToggle(!toggle);
+        dispatchEditClearText();
         event.currentTarget.reset();
+        setTogglerAction({ type: 'isSecondInput', value: false });
     };
 
     return (
@@ -80,12 +81,12 @@ export const MessageComponent: FC<Message> = (props) => {
                     <S.Delete onClick = { DeleteHandler }>
                         <FontAwesomeIcon
                             color = 'black'
-                            icon = { faTrash } />;
+                            icon = { faTrash } />
                     </S.Delete>
                     <S.EditButton onClick = { editHandler }>
                         <FontAwesomeIcon
                             color = 'black'
-                            icon = { faPencilAlt } />;
+                            icon = { faPencilAlt } />
                     </S.EditButton>
                 </S.ButtonsWrapper>
             </S.Buttons>
@@ -111,7 +112,7 @@ export const MessageComponent: FC<Message> = (props) => {
                         <input
                             ref = { ref }
                             type = 'text'
-                            value = { editedMessageText }
+                            value = { editedMessageText !== '' ?  editedMessageText : props.text }
                             onChange = { onChangeInput }
                             onFocus = { (event: React.FocusEvent<HTMLInputElement, Element>) => {
                                 event.currentTarget.selectionEnd;
