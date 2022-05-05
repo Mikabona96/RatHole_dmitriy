@@ -30,7 +30,13 @@ const refreshUser = (callAction: ReturnType<typeof refreshUserAction>) => makeRe
         }),
     },
     succes: function* (result) {
+        console.log(result);
         yield put(userActions.setUser(result));
+    },
+    error: function* (error) {
+        if (error) {
+            localStorage.clear();
+        }
     },
 });
 
