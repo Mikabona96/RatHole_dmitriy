@@ -9,7 +9,7 @@ export const Chat = styled.div`
     border-radius: 2%;
     height: 50%;
     padding: 1%;
-    justify-content: space-between;
+    justify-content: end;
     &::-webkit-scrollbar {
 		width: 0.5rem;
         border-radius: 2%;

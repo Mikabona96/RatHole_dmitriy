@@ -173,7 +173,8 @@ export const Keyboard: FC = () => {
                                     return (
                                         <S.Key
                                             colir = { k.code === keycode }
-                                            key = { k.key }>{k.key}
+                                            key = { k.key }
+                                            onClick = { () => clickAsKeyboardEvent({ key: k.key, code: `${k.code}` }) }>{k.key}
                                         </S.Key>
                                     );
                                 case 'Space':
