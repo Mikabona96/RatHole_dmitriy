@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
     top: 30%;
     left: 50%;
     width: 20%;
-    height: 10%;
     transform: translate(-50%, -30%);
     display: flex;
     flex-direction: column;
@@ -30,8 +29,8 @@ export const Wrapper = styled.div`
 export const Buttons = styled.div`
     display: flex;
     margin-top: 5%;
-    width: 40%;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: space-evenly;
 `;
 
 export const ButtonDel = styled.button`
