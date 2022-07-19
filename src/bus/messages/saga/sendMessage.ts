@@ -1,41 +1,36 @@
 // Core
 import { SagaIterator } from '@redux-saga/core';
 import { createAction } from '@reduxjs/toolkit';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 
 // Slice
 import { messagesActions, sliceName } from '../slice';
 
 // Tools
-import { makeRequest } from '../../../tools/utils';
 import { API_URL } from '../../../init/constants';
 
 // Types
-import { Message, message } from '../types';
+import { message } from '../types';
 
 // Action
 export const sendMessageAction = createAction<message>(`${sliceName}/SEND_MESSAGE_ASYNC`);
 
 
 // Saga
-const sendMessage = (callAction: ReturnType<typeof sendMessageAction>) => makeRequest<Message>({
-    callAction,
-    fetchOptions: {
-        successStatusCode: 201,
-        fetch:             () => fetch(`${API_URL}/messages`, {
-            method:  'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(callAction.payload),
-        }),
-    },
-    succes: function* (result) {
-        yield put(messagesActions.addMessage(result));
-    },
-});
+
+function* makeReq(callAction: ReturnType<typeof sendMessageAction>):SagaIterator {
+    const message = yield call(() => fetch(`${API_URL}/messages`, {
+        method:  'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(callAction.payload),
+    }));
+    const formattedMessage = yield message.json();
+    yield put(messagesActions.addMessage(formattedMessage));
+}
 
 // Watcher
 export function* watchSendMessage(): SagaIterator {
-    yield takeLatest(sendMessageAction.type, sendMessage);
+    yield takeLatest(sendMessageAction.type, makeReq);
 }
