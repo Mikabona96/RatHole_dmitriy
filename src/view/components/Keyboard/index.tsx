@@ -4,7 +4,9 @@ import React, { FC } from 'react';
 // Bus
 import { useTogglersRedux } from '../../../bus/client/togglers';
 import { useKeyCode } from '../../../bus/keyCode';
+import { useMessages } from '../../../bus/messages';
 import { useText } from '../../../bus/text';
+import { useUser } from '../../../bus/user';
 
 // Hooks
 import { useKeyboard } from '../../../tools/hooks/useKeyboard';
@@ -16,8 +18,9 @@ export const Keyboard: FC = () => {
     const { LayOut, toggleKeyboard, toggleLayout } = useKeyboard();
     const { keyCode } = useKeyCode();
     const { setTogglerAction, togglersRedux: { isShiftPressed }} = useTogglersRedux();
-    const { dispatchText, dispatchRemoveLetterFromText } = useText();
-
+    const { text, dispatchClearText, dispatchText, dispatchRemoveLetterFromText } = useText();
+    const { user } = useUser();
+    const { sendMessage } = useMessages();
 
     return (
         <S.LayOut>
@@ -156,7 +159,14 @@ export const Keyboard: FC = () => {
                                     return (
                                         <S.Key
                                             colir = { k.code === keycode }
-                                            key = { k.key }>{k.key}
+                                            key = { k.key }
+                                            onClick = { () => {
+                                                sendMessage({
+                                                    text:     text,
+                                                    username: user?.username,
+                                                });
+                                                dispatchClearText();
+                                            } }>{k.key}
                                         </S.Key>
                                     );
                                 case 'Space':
