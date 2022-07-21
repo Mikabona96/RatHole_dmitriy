@@ -18,8 +18,8 @@ const isDevMode = process.env.NODE_ENV === 'development';
 
 export const useMessages = (isFetching?: true) => {
     const dispatch = useDispatch();
-    const { editMessage, deleteMessage } = useMessagesSaga();
-    const { fetchMessages, sendMessage } = useMessagesThunk();
+    const { editMessage } = useMessagesSaga();
+    const { fetchMessages, sendMessage, deleteMessage } = useMessagesThunk();
     const messages = useSelector((state) => state.messages?.messages); // Add messages to ./src/init/redux/index.ts
     const createMessage = (message: Message) => dispatch(messagesActions.createMessage(message));
 
