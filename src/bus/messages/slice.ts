@@ -6,10 +6,8 @@ import * as types from './types';
 
 // Reducers
 import * as reducers from './reducers';
-import { fetchMessages } from './thunk/fetchMessages';
-import { sendMessage } from './thunk/sendMessage';
-import { deleteMessage } from './thunk/deleteMessage';
-import * as Cases from './thunk/cases';
+
+import extraReducers from './extraReducers';
 
 const initialState = {
     status:   'idle',
@@ -18,21 +16,10 @@ const initialState = {
 };
 
 export const messagesSlice = createSlice<types.MessagesState, typeof reducers>({
-    name:          'messages',
+    name: 'messages',
     initialState,
     reducers,
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchMessages.pending, Cases.fetchMessagePending)
-            .addCase(fetchMessages.fulfilled, Cases.fetchMessageFullfiled)
-            .addCase(fetchMessages.rejected, Cases.fetchMessageRejected)
-            .addCase(sendMessage.pending, Cases.sendMessagePending)
-            .addCase(sendMessage.fulfilled, Cases.sendMessageFullfiled)
-            .addCase(sendMessage.rejected, Cases.sendMessageRejected)
-            .addCase(deleteMessage.pending, Cases.deleteMessagePending)
-            .addCase(deleteMessage.fulfilled, Cases.deleteMessageFullfiled)
-            .addCase(deleteMessage.rejected, Cases.deleteMessageRejected);
-    },
+    extraReducers,
 });
 
 export const sliceName = messagesSlice.name;
