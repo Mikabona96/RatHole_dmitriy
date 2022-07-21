@@ -20,7 +20,11 @@ export type editedMessage = {
 }
 
 export type Messages = Array<Message>
-export type MessagesState = Array<Message> | null
+export type MessagesState = {
+    status: string,
+    messages: Array<Message> | [],
+    error: any
+} | null
 
 // Contracts
 export type BaseContact<T = any> = CaseReducer<MessagesState, PayloadAction<T>>
