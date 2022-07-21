@@ -1,21 +1,35 @@
 import { MessagesState } from '../types';
 
 export const fetchMessagePending = (state: MessagesState) => {
-    if (state) {
-        state.status = 'loading';
-        state.messages = [];
-        state.error = null;
-    }
+    state!.status = 'loading';
+    state!.error = null;
 };
 
 export const fetchMessageFullfiled = (state: MessagesState, action: any) => {
-    if (Array.isArray(action.payload)) {
-        state!.messages = action.payload;
-        state!.status = 'idle';
-        state!.error = null;
-    } else {
-        state!.error = action.payload;
-        state!.status = 'failed';
-        state!.messages = [];
-    }
+    state!.messages = action.payload;
+    state!.status = 'idle';
+    state!.error = null;
+};
+
+export const fetchMessageRejected = (state: MessagesState, action: any) => {
+    state!.status = 'failed';
+    state!.messages = [];
+    state!.error = action.error;
+};
+
+export const sendMessagePending = (state: MessagesState) => {
+    state!.status = 'loading';
+    state!.error = null;
+};
+
+export const sendMessageFullfiled = (state: MessagesState, action: any) => {
+    state!.messages = [ action.payload, ...state!.messages ];
+    state!.status = 'idle';
+    state!.error = null;
+};
+
+export const sendMessageRejected = (state: MessagesState, action: any) => {
+    state!.status = 'failed';
+    state!.messages = [];
+    state!.error = action.error;
 };

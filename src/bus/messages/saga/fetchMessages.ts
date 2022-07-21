@@ -17,9 +17,9 @@ export const fetchMessagesAction = createAction(`${sliceName}/FETCH_MESSAGES_ASY
 // Saga
 
 function* makeReq():SagaIterator {
-    const cats = yield call(() => fetch(`${API_URL}/messages`));
-    const formattedCats = yield cats.json();
-    yield put(messagesActions.setMessages(formattedCats));
+    const messages = yield call(() => fetch(`${API_URL}/messages`));
+    const formattedMessages = yield messages.json();
+    yield put(messagesActions.setMessages(formattedMessages));
 }
 
 // Watcher

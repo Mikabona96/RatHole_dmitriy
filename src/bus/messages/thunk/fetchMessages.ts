@@ -6,8 +6,17 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // Tools
 import { API_URL } from '../../../init/constants';
 
-export const fetchMessages = createAsyncThunk('FETCH_MESSAGES_ASYNC', async () => {
-    const response = await fetch(`${API_URL}/messages`);
+// Types
+import { Messages } from '../types';
 
-    return response.json();
-});
+
+export const fetchMessages = createAsyncThunk<Messages, undefined, {rejectValue: string}>('FETCH_MESSAGES_ASYNC',
+    async (_, { rejectWithValue }) => {
+        const response = await fetch(`${API_URL}/messages`);
+
+        if (!response.ok) {
+            return rejectWithValue('Something went wrong');
+        }
+
+        return response.json();
+    });

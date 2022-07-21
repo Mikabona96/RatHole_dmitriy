@@ -7,6 +7,7 @@ import * as types from './types';
 // Reducers
 import * as reducers from './reducers';
 import { fetchMessages } from './thunk/fetchMessages';
+import { sendMessage } from './thunk/sendMessage';
 import * as Cases from './thunk/cases';
 
 const initialState = {
@@ -22,7 +23,11 @@ export const messagesSlice = createSlice<types.MessagesState, typeof reducers>({
     extraReducers: (builder) => {
         builder
             .addCase(fetchMessages.pending, Cases.fetchMessagePending)
-            .addCase(fetchMessages.fulfilled, Cases.fetchMessageFullfiled);
+            .addCase(fetchMessages.fulfilled, Cases.fetchMessageFullfiled)
+            .addCase(fetchMessages.rejected, Cases.fetchMessageRejected)
+            .addCase(sendMessage.pending, Cases.sendMessagePending)
+            .addCase(sendMessage.fulfilled, Cases.sendMessageFullfiled)
+            .addCase(sendMessage.rejected, Cases.sendMessageRejected);
     },
 });
 
