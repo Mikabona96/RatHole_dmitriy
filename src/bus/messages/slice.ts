@@ -9,7 +9,11 @@ import * as reducers from './reducers';
 import { fetchMessages } from './thunk/fetchMessages';
 import * as Cases from './thunk/cases';
 
-const initialState = null;
+const initialState = {
+    status:   'idle',
+    error:    null,
+    messages: [],
+};
 
 export const messagesSlice = createSlice<types.MessagesState, typeof reducers>({
     name:          'messages',
