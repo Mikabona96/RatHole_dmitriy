@@ -7,6 +7,7 @@ import * as types from '../types';
 import { fetchMessages } from './fetchMessages';
 import { sendMessage } from './sendMessage';
 import { deleteMessage } from './deleteMessage';
+import { editMessage } from './editMessage';
 
 export const useMessagesThunk = () => {
     const dispatch = useDispatch();
@@ -15,5 +16,6 @@ export const useMessagesThunk = () => {
         fetchMessages: () => void dispatch(fetchMessages()),
         sendMessage:   (message: types.message) => dispatch(sendMessage(message)),
         deleteMessage: (id: string) => dispatch(deleteMessage(id)),
+        editMessage:   (message: types.editedMessage) => dispatch(editMessage(message)),
     };
 };

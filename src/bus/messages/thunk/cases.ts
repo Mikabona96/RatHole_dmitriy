@@ -43,12 +43,30 @@ export const deleteMessagePending = (state: MessagesState) => {
 };
 
 export const deleteMessageFullfiled = (state: MessagesState, action: any) => {
-    state!.messages = state!.messages.filter((message) => message._id !== action.payload);
+    state!.messages = state!.messages.filter((message) => message._id !== action.meta.arg);
     state!.status = 'idle';
     state!.error = null;
 };
 
 export const deleteMessageRejected = (state: MessagesState, action: any) => {
+    state!.status = 'failed';
+    state!.error = action.error;
+};
+
+// EditMessage cases
+export const editMessagePending = (state: MessagesState) => {
+    state!.status = 'loading';
+    state!.error = null;
+};
+
+export const editMessageFullfiled = (state: MessagesState, action: any) => {
+    const tempState = state!.messages.filter((message) => message._id !== action.payload._id);
+    state!.messages = [ action.payload, ...tempState ];
+    state!.status = 'idle';
+    state!.error = null;
+};
+
+export const editMessageRejected = (state: MessagesState, action: any) => {
     state!.status = 'failed';
     state!.error = action.error;
 };

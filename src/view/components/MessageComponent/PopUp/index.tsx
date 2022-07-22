@@ -1,4 +1,5 @@
 // Core
+import { AsyncThunkAction } from '@reduxjs/toolkit';
 import React, { FC, useRef } from 'react';
 
 // Styles
@@ -8,10 +9,9 @@ import * as S from './styles';
 type PropTypes = {
     setPopUp: React.Dispatch<React.SetStateAction<boolean>>
     id: string
-    deleteMessage: (id: string) => {
-        payload: string;
-        type: string;
-    }
+    deleteMessage: (id: string) => AsyncThunkAction<boolean, string, {
+        rejectValue: string
+    }>
 }
 
 export const PopUp: FC<PropTypes> = ({ setPopUp, deleteMessage, id }) => {

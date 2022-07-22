@@ -1,27 +1,19 @@
 // Tools
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useSelector } from '../../tools/hooks';
 
 // Saga
-import { useMessagesSaga } from './saga';
-import { messagesActions } from './slice';
+// import { useMessagesSaga } from './saga';
 
 // Thunk
 import { useMessagesThunk } from './thunk';
 
-// Types
-import { Message } from './types';
-
-
 const isDevMode = process.env.NODE_ENV === 'development';
 
 export const useMessages = (isFetching?: true) => {
-    const dispatch = useDispatch();
-    const { editMessage } = useMessagesSaga();
-    const { fetchMessages, sendMessage, deleteMessage } = useMessagesThunk();
+    // const { editMessage } = useMessagesSaga();
+    const { fetchMessages, sendMessage, deleteMessage, editMessage } = useMessagesThunk();
     const messages = useSelector((state) => state.messages?.messages); // Add messages to ./src/init/redux/index.ts
-    const createMessage = (message: Message) => dispatch(messagesActions.createMessage(message));
 
     useEffect(() => {
         isFetching && fetchMessages();
@@ -36,6 +28,5 @@ export const useMessages = (isFetching?: true) => {
         fetchMessages,
         editMessage,
         deleteMessage,
-        createMessage,
     };
 };
