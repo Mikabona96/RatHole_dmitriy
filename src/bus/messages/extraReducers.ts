@@ -1,3 +1,6 @@
+// Core
+import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
+
 // Thunk requests
 import { fetchMessages } from './thunk/fetchMessages';
 import { sendMessage } from './thunk/sendMessage';
@@ -7,8 +10,11 @@ import { editMessage } from './thunk/editMessage';
 // Thunk Cases
 import * as Cases from './thunk/cases';
 
+// Types
+import { MessagesState } from './types';
+
 // Extra reducers
-export default (builder: any) => {
+export default (builder: ActionReducerMapBuilder<MessagesState>) => {
     builder
         // fetchMessages Cases
         .addCase(fetchMessages.pending, Cases.fetchMessagePending)

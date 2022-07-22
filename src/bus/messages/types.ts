@@ -26,5 +26,8 @@ export type MessagesState = {
     error: any
 } | null
 
+// Action types
+export type ActionType = {[key: string]: any}
+
 // Contracts
 export type BaseContact<T = any> = CaseReducer<MessagesState, PayloadAction<T>>
