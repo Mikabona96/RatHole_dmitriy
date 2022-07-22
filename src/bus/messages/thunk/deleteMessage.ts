@@ -1,8 +1,6 @@
 // Core
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// Slice
-
 // Tools
 import { API_URL } from '../../../init/constants';
 

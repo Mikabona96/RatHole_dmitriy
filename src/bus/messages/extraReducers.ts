@@ -1,10 +1,13 @@
+// Thunk requests
 import { fetchMessages } from './thunk/fetchMessages';
-import * as Cases from './thunk/cases';
 import { sendMessage } from './thunk/sendMessage';
 import { deleteMessage } from './thunk/deleteMessage';
 import { editMessage } from './thunk/editMessage';
 
+// Thunk Cases
+import * as Cases from './thunk/cases';
 
+// Extra reducers
 export default (builder: any) => {
     builder
         // fetchMessages Cases
