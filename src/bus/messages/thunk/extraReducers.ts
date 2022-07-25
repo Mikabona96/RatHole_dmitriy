@@ -2,16 +2,16 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 
 // Thunk requests
-import { fetchMessages } from './thunk/fetchMessages';
-import { sendMessage } from './thunk/sendMessage';
-import { deleteMessage } from './thunk/deleteMessage';
-import { editMessage } from './thunk/editMessage';
+import { fetchMessages } from './fetchMessages';
+import { sendMessage } from './sendMessage';
+import { deleteMessage } from './deleteMessage';
+import { editMessage } from './editMessage';
 
 // Thunk Cases
-import * as Cases from './thunk/cases';
+import * as Cases from './cases';
 
 // Types
-import { MessagesState } from './types';
+import { MessagesState } from '../types';
 
 // Extra reducers
 export default (builder: ActionReducerMapBuilder<MessagesState>) => {

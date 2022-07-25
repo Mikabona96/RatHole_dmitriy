@@ -7,7 +7,7 @@ import * as types from './types';
 // Reducers
 import * as reducers from './reducers';
 
-import extraReducers from './extraReducers';
+import extraReducers from './thunk/extraReducers';
 
 const initialState = {
     status:   'idle',
