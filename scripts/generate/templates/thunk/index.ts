@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { fetch__entityName__(pascalCase) } from './fetch__entityName__(pascalCase)';
 
 
-export const useMessagesThunk = () => {
+export const use__entityName__(pascalCase)Thunk = () => {
     const dispatch = useDispatch();
 
     return {

@@ -10,7 +10,11 @@ import * as reducers from './reducers';
 // ExtraReducers
 // import extraReducers from './thunk/extraReducers';
 
-const initialState = null;
+const initialState = {
+    status:   'idle',
+    error:    null,
+    __entityName__: [],
+};
 
 export const __entityName__Slice = createSlice<types.__entityName__(pascalCase)State, typeof reducers>({
     name: '__entityName__',
